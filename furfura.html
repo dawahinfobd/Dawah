@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furfura Sharif - Spiritual Resources</title>
-
+    <title>Ad - Dawah</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -856,21 +857,22 @@ audio::-webkit-media-controls-timeline::-webkit-slider-thumb {
     background: #000;
     border-radius: 8px; 
     overflow: hidden; 
-    margin-bottom: 12px; 
+    margin-bottom: 12px;
     box-shadow: var(--shadow-sm);
+    /* This ensures proper aspect ratio */
     aspect-ratio: 16 / 9;
-    transition: var(--transition);
 }
 
-.video-container iframe,
+
 .video-container video {
     width: 100%;
     height: 100%;
-    border: none;
+    display: block;
+    object-fit: cover; /* This makes video fill container while maintaining aspect ratio */
     border-radius: 0 0 8px 8px;
     background: #000;
-    object-fit: cover;
 }
+
 
 .video-logo {
     position: absolute; 
@@ -880,27 +882,26 @@ audio::-webkit-media-controls-timeline::-webkit-slider-thumb {
     height: 33px; 
     z-index: 10;
     padding: 4px; 
-    
-    
-    
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
 }
 
 .video-logo img { 
     width: 100%; 
     height: 100%; 
     object-fit: contain; 
-    
+    filter: brightness(1.2);
 }
 
 /* Secure Video Player Styling */
 .secure-video-player {
     width: 100%;
-    height: 100%;
+    height: 100%; /* Changed from fixed height to 100% */
     display: block;
     background: #000;
     outline: none;
+    border-radius: 0 0 8px 8px;
 }
-
 /* Hide specific control elements */
 .secure-video-player::-webkit-media-controls-overflow-button {
     display: none !important;
@@ -908,31 +909,6 @@ audio::-webkit-media-controls-timeline::-webkit-slider-thumb {
 
 .secure-video-player::-webkit-media-controls-mute-button {
     display: none !important;
-}
-
-/* Video Play Button Overlay */
-.video-play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition);
-    z-index: 5;
-    color: white;
-    font-size: 1.5rem;
-}
-
-.video-play-button:hover {
-    background: rgba(0, 0, 0, 0.9);
-    transform: translate(-50%, -50%) scale(1.1);
 }
 
 /* Pagination */
@@ -1254,8 +1230,6 @@ button:focus-visible,
         animation: fadeInUp 0.1s both;
     }
     
-  
-    
     .content-section {
         animation: none;
     }
@@ -1426,572 +1400,296 @@ button:focus-visible,
     
     <!-- Media Content Templates (Hidden) -->
     <div id="media-templates" style="display: none;">
-        <!-- Abuzar Audio Content -->
-        <div id="abuzar-audio-content">
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-microphone-alt"></i></div>
-                    <h3 class="media-title">Friday Waz - Spiritual Guidance</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> May 2025 • 45m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-hands-praying"></i></div>
-                    <h3 class="media-title">Beautiful Hamd Collection</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> April 2025 • 30m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-mosque"></i></div>
-                    <h3 class="media-title">Special Milad Program</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> March 2025 • 60m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-music"></i></div>
-                    <h3 class="media-title">Naat Sharif - Voice of the Heart</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> February 2025 • 25m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-microphone-alt"></i></div>
-                    <h3 class="media-title">Weekly Islamic Teachings</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> January 2025 • 50m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-hands-praying"></i></div>
-                    <h3 class="media-title">Hamd-e-Bari Taala</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> December 2024 • 20m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-music"></i></div>
-                    <h3 class="media-title">Naat Collection Vol. 2</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> November 2024 • 35m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-mosque"></i></div>
-                    <h3 class="media-title">Eid Milad-un-Nabi Special</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> October 2024 • 75m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Abuzar Video Content -->
-        <div id="abuzar-video-content">
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Friday Waz - Video Lecture</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> May 2025 • 45m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://ia800509.us.archive.org/34/items/20250830_20250830_0653/%E0%A6%AC%E0%A7%9F%E0%A6%B8%2C%20%E0%A6%AA%E0%A6%BF%E0%A6%A4%E0%A6%BE%20%E0%A6%AA%E0%A7%81%E0%A6%A4%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%B0%20%E0%A6%AC%E0%A7%9F%E0%A6%B8%20.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Hamd Performance Live</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> April 2025 • 30m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Milad Ceremony Recording</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> March 2025 • 60m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Naat Performance</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> February 2025 • 25m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Abbas Audio Content -->
-        <div id="abbas-audio-content">
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-microphone-alt"></i></div>
-                    <h3 class="media-title">Weekly Waz - Islamic Teachings</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> May 2025 • 50m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-hands-praying"></i></div>
-                    <h3 class="media-title">Hamd-e-Bari Taala</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> April 2025 • 20m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-music"></i></div>
-                    <h3 class="media-title">Naat Collection Vol. 1</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> March 2025 • 35m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-mosque"></i></div>
-                    <h3 class="media-title">Milad-un-Nabi Special</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> February 2025 • 75m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-microphone-alt"></i></div>
-                    <h3 class="media-title">Friday Khutbah</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> January 2025 • 45m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-hands-praying"></i></div>
-                    <h3 class="media-title">Praise of the Prophet</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> December 2024 • 30m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-music"></i></div>
-                    <h3 class="media-title">Beautiful Naat Selection</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> November 2024 • 25m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-mosque"></i></div>
-                    <h3 class="media-title">Annual Milad Program</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> October 2024 • 90m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Abbas Video Content -->
-        <div id="abbas-video-content">
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Islamic Lecture Series</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> May 2025 • 50m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Hamd Performance</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> April 2025 • 20m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Naat Recitation</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> March 2025 • 35m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Milad Celebration</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> February 2025 • 75m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Junaid Audio Content -->
-        <div id="junaid-audio-content">
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-microphone-alt"></i></div>
-                    <h3 class="media-title">Powerful Waz on Faith</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> May 2025 • 55m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://drive.google.com/file/d/19kb290qWWZn9U4AYegAbIkd_p7J9qzTM/view?usp=drivesdk" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-hands-praying"></i></div>
-                    <h3 class="media-title">Hamd Collection - Praise of Allah</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> April 2025 • 40m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-music"></i></div>
-                    <h3 class="media-title">Beautiful Naat Selection</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> March 2025 • 30m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-mosque"></i></div>
-                    <h3 class="media-title">Annual Milad Program</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> February 2025 • 90m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-microphone-alt"></i></div>
-                    <h3 class="media-title">Islamic Guidance Series</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> January 2025 • 50m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-hands-praying"></i></div>
-                    <h3 class="media-title">Divine Praise Collection</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> December 2024 • 35m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-music"></i></div>
-                    <h3 class="media-title">Naat-e-Rasool</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> November 2024 • 30m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-mosque"></i></div>
-                    <h3 class="media-title">Special Milad Gathering</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> October 2024 • 80m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <audio controls controlsList="nodownload">
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mp3">
-                    </audio>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Junaid Video Content -->
-        <div id="junaid-video-content">
-            <div class="media-item" data-category="waz">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Faith and Spirituality Talk</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> May 2025 • 55m</div>
-                    <span class="media-category">waz</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="hamd">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Hamd Performance Live</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> April 2025 • 40m</div>
-                    <span class="media-category">hamd</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="naat">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Naat Recitation</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> March 2025 • 30m</div>
-                    <span class="media-category">naat</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-            <div class="media-item" data-category="milad">
-                <div class="media-header">
-                    <div class="media-icon"><i class="fas fa-video"></i></div>
-                    <h3 class="media-title">Milad Celebration</h3>
-                    <div class="media-date"><i class="far fa-calendar-alt"></i> February 2025 • 90m</div>
-                    <span class="media-category">milad</span>
-                </div>
-                <div class="media-player">
-                    <div class="video-container">
-                        <div class="video-logo">
-                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
-                        </div>
-                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Templates will be populated by JavaScript -->
     </div>
 
     <script>
+    // Media content data structure
+    const mediaContent = {
+        abuzar: {
+            audio: [
+                {
+                    title: "Friday Waz - Spiritual Guidance",
+                    category: "waz",
+                    date: "May 2025",
+                    duration: "45m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                },
+                {
+                    title: "Beautiful Hamd Collection",
+                    category: "hamd",
+                    date: "April 2025",
+                    duration: "30m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                },
+                {
+                    title: "Special Milad Program",
+                    category: "milad",
+                    date: "March 2025",
+                    duration: "60m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+                },
+                {
+                    title: "Naat Sharif - Voice of the Heart",
+                    category: "naat",
+                    date: "February 2025",
+                    duration: "25m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+                },
+                {
+                    title: "Weekly Islamic Teachings",
+                    category: "waz",
+                    date: "January 2025",
+                    duration: "50m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                },
+                {
+                    title: "Hamd-e-Bari Taala",
+                    category: "hamd",
+                    date: "December 2024",
+                    duration: "20m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+                },
+                {
+                    title: "Naat Collection Vol. 2",
+                    category: "naat",
+                    date: "November 2024",
+                    duration: "35m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                },
+                {
+                    title: "Eid Milad-un-Nabi Special",
+                    category: "milad",
+                    date: "October 2024",
+                    duration: "75m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                }
+            ],
+            video: [
+                {
+                    title: "Friday Waz - Video Lecture",
+                    category: "waz",
+                    date: "May 2025",
+                    duration: "45m",
+                    src: "https://ia800509.us.archive.org/34/items/20250830_20250830_0653/%E0%A6%AC%E0%A7%9F%E0%A6%B8%2C%20%E0%A6%AA%E0%A6%BF%E0%A6%A4%E0%A6%BE%20%E0%A6%AA%E0%A7%81%E0%A6%A4%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%B0%20%E0%A6%AC%E0%A7%9F%E0%A6%B8%20.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Hamd Performance Live",
+                    category: "hamd",
+                    date: "April 2025",
+                    duration: "30m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Milad Ceremony Recording",
+                    category: "milad",
+                    date: "March 2025",
+                    duration: "60m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Naat Performance",
+                    category: "naat",
+                    date: "February 2025",
+                    duration: "25m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                }
+            ]
+        },
+        abbas: {
+            audio: [
+                {
+                    title: "Weekly Waz - Islamic Teachings",
+                    category: "waz",
+                    date: "May 2025",
+                    duration: "50m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                },
+                {
+                    title: "Hamd-e-Bari Taala",
+                    category: "hamd",
+                    date: "April 2025",
+                    duration: "20m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+                },
+                {
+                    title: "Naat Collection Vol. 1",
+                    category: "naat",
+                    date: "March 2025",
+                    duration: "35m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                },
+                {
+                    title: "Milad-un-Nabi Special",
+                    category: "milad",
+                    date: "February 2025",
+                    duration: "75m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                },
+                {
+                    title: "Friday Khutbah",
+                    category: "waz",
+                    date: "January 2025",
+                    duration: "45m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+                },
+                {
+                    title: "Praise of the Prophet",
+                    category: "hamd",
+                    date: "December 2024",
+                    duration: "30m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
+                },
+                {
+                    title: "Beautiful Naat Selection",
+                    category: "naat",
+                    date: "November 2024",
+                    duration: "25m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"
+                },
+                {
+                    title: "Annual Milad Program",
+                    category: "milad",
+                    date: "October 2024",
+                    duration: "90m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"
+                }
+            ],
+            video: [
+                {
+                    title: "Islamic Lecture Series",
+                    category: "waz",
+                    date: "May 2025",
+                    duration: "50m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Hamd Performance",
+                    category: "hamd",
+                    date: "April 2025",
+                    duration: "20m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Naat Recitation",
+                    category: "naat",
+                    date: "March 2025",
+                    duration: "35m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Milad Celebration",
+                    category: "milad",
+                    date: "February 2025",
+                    duration: "75m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                }
+            ]
+        },
+        junaid: {
+            audio: [
+                {
+                    title: "Powerful Waz on Faith",
+                    category: "waz",
+                    date: "May 2025",
+                    duration: "55m",
+                    src: "https://drive.google.com/file/d/19kb290qWWZn9U4AYegAbIkd_p7J9qzTM/view?usp=drivesdk"
+                },
+                {
+                    title: "Hamd Collection - Praise of Allah",
+                    category: "hamd",
+                    date: "April 2025",
+                    duration: "40m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
+                },
+                {
+                    title: "Beautiful Naat Selection",
+                    category: "naat",
+                    date: "March 2025",
+                    duration: "30m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"
+                },
+                {
+                    title: "Annual Milad Program",
+                    category: "milad",
+                    date: "February 2025",
+                    duration: "90m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"
+                },
+                {
+                    title: "Islamic Guidance Series",
+                    category: "waz",
+                    date: "January 2025",
+                    duration: "50m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                },
+                {
+                    title: "Divine Praise Collection",
+                    category: "hamd",
+                    date: "December 2024",
+                    duration: "35m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                },
+                {
+                    title: "Naat-e-Rasool",
+                    category: "naat",
+                    date: "November 2024",
+                    duration: "30m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+                },
+                {
+                    title: "Special Milad Gathering",
+                    category: "milad",
+                    date: "October 2024",
+                    duration: "80m",
+                    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+                }
+            ],
+            video: [
+                {
+                    title: "Faith and Spirituality Talk",
+                    category: "waz",
+                    date: "May 2025",
+                    duration: "55m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Hamd Performance Live",
+                    category: "hamd",
+                    date: "April 2025",
+                    duration: "40m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Naat Recitation",
+                    category: "naat",
+                    date: "March 2025",
+                    duration: "30m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                },
+                {
+                    title: "Milad Celebration",
+                    category: "milad",
+                    date: "February 2025",
+                    duration: "90m",
+                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                    poster: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+                }
+            ]
+        }
+    };
+
     // Pagination variables
     const itemsPerPage = 9;
     const currentPages = { abuzar: 1, abbas: 1, junaid: 1 };
@@ -2002,13 +1700,45 @@ button:focus-visible,
     let currentlyPlaying = null;
     let currentlyPlayingElement = null;
 
-    // Get content from templates
-    function getContentFromTemplate(huzur, mediaType) {
-        const template = document.getElementById(`${huzur}-${mediaType}-content`);
-        if (template) {
-            return Array.from(template.children);
-        }
-        return [];
+    // Create media item element
+    function createMediaItem(item, mediaType) {
+        const mediaItem = document.createElement('div');
+        mediaItem.className = 'media-item';
+        mediaItem.dataset.category = item.category;
+        
+        const iconClass = {
+            'waz': 'fas fa-microphone-alt',
+            'hamd': 'fas fa-hands-praying',
+            'naat': 'fas fa-music',
+            'milad': 'fas fa-mosque'
+        }[item.category] || 'fas fa-file-audio';
+        
+        mediaItem.innerHTML = `
+            <div class="media-header">
+                <div class="media-icon"><i class="${iconClass}"></i></div>
+                <h3 class="media-title">${item.title}</h3>
+                <div class="media-date"><i class="far fa-calendar-alt"></i> ${item.date} • ${item.duration}</div>
+                <span class="media-category">${item.category}</span>
+            </div>
+            <div class="media-player">
+                ${mediaType === 'audio' ? 
+                    `<audio controls controlsList="nodownload">
+                        <source src="${item.src}" type="audio/mp3">
+                    </audio>` : 
+                    `<div class="video-container">
+                        <div class="video-logo">
+                            <img src="https://raw.githubusercontent.com/dawahinfobd/Dawah/25c865fa2ea64580fd3c24b20393d25076e3824d/Logo%20heading%20.jpeg" alt="Furfura Sharif Logo">
+                        </div>
+                        <video class="secure-video-player" controls controlsList="nodownload noplaybackrate nofullscreen" poster="${item.poster || ''}">
+                            <source src="${item.src}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>`
+                }
+            </div>
+        `;
+        
+        return mediaItem;
     }
 
     // Load content for a huzur
@@ -2020,12 +1750,11 @@ button:focus-visible,
         grid.innerHTML = '<div class="loading" style="grid-column: 1/-1; height: 200px; border-radius: 13px; background: #f9fafd;"></div>';
         
         setTimeout(() => {
-            // Get content from template
-            const templateContent = getContentFromTemplate(huzur, mediaType);
+            // Get content from data structure
+            let content = mediaContent[huzur][mediaType] || [];
             
-            let content = Array.from(templateContent);
             if (category !== 'all') {
-                content = content.filter(item => item.dataset.category === category);
+                content = content.filter(item => item.category === category);
             }
             
             const totalPages = Math.ceil(content.length / itemsPerPage);
@@ -2035,7 +1764,7 @@ button:focus-visible,
             // Clear grid and add content
             grid.innerHTML = '';
             paginatedContent.forEach(item => {
-                grid.appendChild(item.cloneNode(true));
+                grid.appendChild(createMediaItem(item, mediaType));
             });
             
             // Set up pagination
@@ -2207,4 +1936,3 @@ button:focus-visible,
     </script>
 </body>
 </html>
-   
