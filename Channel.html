@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Islamic YouTube Channels Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#fefefe;color:#333;line-height:1.5;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+
+/* Header */
+header{
+  background: linear-gradient(135deg,#ff4d4d,#e60000);
+  color:#fff;
+  padding:2rem 1rem;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+header h1{font-weight:700;font-size:2rem;letter-spacing:1px;}
+
+/* Controls */
+.controls{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;
+  padding:1rem;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  border-radius:12px; max-width:1200px; margin:auto 0 2rem;
+}
+.controls input, .controls select{
+  padding:.7rem 1rem; border-radius:8px; border:1px solid #ccc; outline:none; font-size:1rem;
+  transition:all .3s ease; min-width:150px;
+}
+.controls input:focus, .controls select:focus{
+  border-color:#e60000; box-shadow:0 0 8px rgba(230,0,0,0.3);
+}
+
+/* Main Container */
+main#channels {max-width:1200px;margin:auto;display:flex;flex-direction:column;gap:2rem;}
+
+/* Channel Card */
+.channel-card{
+  background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);
+  cursor:pointer;transition:transform .3s,box-shadow .3s;
+  display:flex; align-items:center; gap:1rem; padding:1rem 2rem; position:relative;
+}
+.channel-card:hover{transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.15);}
+.channel-card img{border-radius:50%;width:70px;height:70px;object-fit:cover;border:2px solid #ff4d4d;}
+.channel-card div{display:flex;flex-direction:column;}
+.channel-card h2{font-size:1.4rem;font-weight:600;margin-bottom:5px;}
+.channel-card p{color:#555;font-size:.95rem;}
+.channel-card::after{
+  content:"▶"; position:absolute; font-size:2rem; color:rgba(255,0,0,0.8); right:20px; top:50%; transform:translateY(-50%);
+}
+
+/* Modal for Videos */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);justify-content:center;align-items:flex-start;z-index:2000;padding:1rem;overflow-y:auto;transition:0.3s;}
+.modal-content{position:relative;width:100%;max-width:900px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+.modal-header{padding:1rem 1.5rem;background:#ff4d4d;color:#fff;font-weight:600;font-size:1.2rem;display:flex;justify-content:space-between;align-items:center;}
+.modal-header button{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;margin-left:0.5rem;}
+.modal-iframe{padding:1rem; display:flex; justify-content:center;}
+.modal-iframe iframe{width:100%;height:450px;border:none;border-radius:12px;}
+.modal-videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;padding:1rem 1.5rem;}
+.modal-videos .video{border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;}
+.modal-videos .video:hover{transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.1);}
+.modal-videos .video img{border-radius:12px; width:100%; height:150px; object-fit:cover;}
+.modal-videos .video h4{margin:.5rem 0;font-weight:600;font-size:1rem;text-align:center;}
+.modal-btns{display:flex;justify-content:space-between;padding:0 1.5rem 1rem 1.5rem;flex-wrap:wrap;gap:.5rem;}
+.modal-btns button{padding:.6rem 1rem;border:none;border-radius:8px;background:#ff4d4d;color:#fff;font-weight:600;cursor:pointer;transition:all .3s;}
+.modal-btns button:hover{background:#e60000;}
+
+/* Footer */
+footer{background:#ff4d4d;color:#fff;text-align:center;padding:1.5rem 1rem;margin-top:2rem; font-size:.9rem;}
+
+@media(max-width:768px){
+  .channel-card{flex-direction:column;text-align:center;}
+  .channel-card img{margin-bottom:.5rem;}
+  .modal-videos{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));}
+  .modal-iframe iframe{height:250px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Islamic YouTube Channels Showcase</h1>
+</header>
+
+<div class="controls">
+<input type="text" id="searchBox" placeholder="Search videos...">
+</div>
+
+<main id="channels"></main>
+
+<!-- Modal -->
+<div class="modal" id="videoModal">
+<div class="modal-content">
+  <div class="modal-header">
+    <span id="modalTitle">Channel Videos</span>
+    <div>
+      <button id="backToGridBtn" onclick="backToGrid()" style="display:none;">← Back to Videos</button>
+      <button onclick="closeModal()">× Close</button>
+    </div>
+  </div>
+  <div class="modal-iframe" id="modalIframeContainer"></div>
+  <div class="modal-videos" id="modalVideos"></div>
+  <div class="modal-btns">
+    <button id="prevBtn" onclick="prevPage()">Previous</button>
+    <button id="nextBtn" onclick="nextPage()">Next / Load More</button>
+  </div>
+</div>
+</div>
+
+<footer>© 2025 Islamic YouTube Showcase. All rights reserved.</footer>
+
+<script>
+// GitHub-friendly version: using RSS feeds instead of API keys
+const CHANNELS = [
+  {id: "UCzX4j2n99EO4FYUarsmH8tg", name:"Channel 1"},
+  {id: "UClFCK07zGYvhy52UdYQ7pAg", name:"Channel 2"}
+];
+
+let modalVideosList=[];
+let currentPage=0;
+const pageSize=6;
+let currentVideoIndex=-1;
+let inVideoMode=false;
+
+// Fetch RSS using rss2json free service
+async function fetchRSS(channelId){
+  const url = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+  try{
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.items.map(item=>({
+      videoId: item.link.split('v=')[1],
+      title: item.title,
+      link: item.link,
+      thumbnail: `https://i.ytimg.com/vi/${item.link.split('v=')[1]}/hqdefault.jpg`,
+      pubDate: item.pubDate
+    }));
+  }catch(e){console.error(e); return [];}
+}
+
+// Display channels
+async function displayChannels(){
+  const container = document.getElementById("channels");
+  container.innerHTML = "";
+  for(const ch of CHANNELS){
+    const videos = await fetchRSS(ch.id);
+    container.innerHTML += `<div class="channel-card" onclick="openChannel('${ch.id}','${ch.name}')">
+      <img src="https://i.ytimg.com/vi/${videos[0]?.videoId || ''}/hqdefault.jpg" alt="${ch.name}">
+      <div><h2>${ch.name}</h2><p>Videos: ${videos.length}</p></div>
+    </div>`;
+  }
+}
+
+// Open channel modal
+async function openChannel(channelId,name){
+  modalVideosList = await fetchRSS(channelId);
+  if(modalVideosList.length===0){ alert("No videos available"); return; }
+  currentPage=0; currentVideoIndex=-1; inVideoMode=false;
+  showModal(name);
+  displayModalVideos();
+}
+
+// Show modal
+function showModal(title){
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modalIframeContainer").innerHTML="";
+  document.getElementById("videoModal").style.display="flex";
+  document.getElementById("backToGridBtn").style.display="none";
+}
+
+// Display modal videos
+function displayModalVideos(){
+  const start=currentPage*pageSize;
+  const end=start+pageSize;
+  const videos=modalVideosList.slice(start,end);
+  const container=document.getElementById("modalVideos");
+  container.style.display="grid";
+  container.innerHTML=videos.map((v,i)=>`
+    <div class="video" onclick="playVideoByIndex(${start+i})">
+      <img src="${v.thumbnail}" alt="${v.title}">
+      <h4>${v.title}</h4>
+    </div>
+  `).join("");
+  document.getElementById("prevBtn").style.display=currentPage===0?'none':'inline-block';
+  document.getElementById("nextBtn").style.display=end>=modalVideosList.length?'none':'inline-block';
+}
+
+// Play video
+function playVideoByIndex(index){
+  if(index<0 || index>=modalVideosList.length) return;
+  currentVideoIndex=index;
+  inVideoMode=true;
+  document.getElementById("modalIframeContainer").innerHTML=`<iframe src="https://www.youtube.com/embed/${modalVideosList[index].videoId}?autoplay=1" allowfullscreen></iframe>`;
+  document.getElementById("modalVideos").style.display="none";
+  document.getElementById("backToGridBtn").style.display="inline-block";
+}
+
+// Back to grid
+function backToGrid(){
+  inVideoMode=false;
+  document.getElement
+
+.getElementById("modalIframeContainer").innerHTML="";
+  document.getElementById("modalVideos").style.display="grid";
+  displayModalVideos();
+  document.getElementById("backToGridBtn").style.display="none";
+}
+
+// Pagination / navigation
+function nextPage(){ 
+  if(inVideoMode){ 
+    if(currentVideoIndex<modalVideosList.length-1) playVideoByIndex(currentVideoIndex+1); 
+  } else { 
+    currentPage++; displayModalVideos(); 
+  } 
+}
+function prevPage(){ 
+  if(inVideoMode){ 
+    if(currentVideoIndex>0) playVideoByIndex(currentVideoIndex-1); 
+  } else { 
+    if(currentPage>0){ currentPage--; displayModalVideos(); } 
+  } 
+}
+
+// Close modal
+function closeModal(){
+  document.getElementById("videoModal").style.display="none";
+  document.getElementById("modalIframeContainer").innerHTML="";
+  document.getElementById("modalVideos").innerHTML="";
+  modalVideosList=[]; currentPage=0; currentVideoIndex=-1; inVideoMode=false;
+}
+
+// Search functionality
+document.getElementById("searchBox").addEventListener("input", async e=>{
+  const term = e.target.value.toLowerCase();
+  let results = [];
+  for(const ch of CHANNELS){
+    const videos = await fetchRSS(ch.id);
+    results.push(...videos);
+  }
+  modalVideosList = results.filter(v => v.title.toLowerCase().includes(term));
+  currentPage=0; currentVideoIndex=-1; inVideoMode=false;
+  showModal("Search Results");
+  displayModalVideos();
+});
+
+// Mobile swipe support
+let startX = 0;
+const modalIframe = document.getElementById("modalIframeContainer");
+modalIframe.addEventListener("touchstart", e => { startX = e.touches[0].clientX; });
+modalIframe.addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX;
+  if(endX - startX > 50) prevPage();
+  else if(startX - endX > 50) nextPage();
+});
+
+// Initialize
+displayChannels();
+</script>
+
+</body>
+</html>
