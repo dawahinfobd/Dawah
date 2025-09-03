@@ -1233,7 +1233,357 @@
                 </div>
             </div>
         </section>
+
+
+
+
+
+
+
+
+
+
+
+          <style>
+        .audio-lectures-card {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: white;
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            color: #333;
+            width: 360px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+            margin: 0;
+            box-sizing: border-box;
+        }
         
+        .audio-lectures-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-icon-container {
+            margin-bottom: 20px;
+        }
+        
+        .card-icon-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.25);
+        }
+        
+        .card-icon-circle i {
+            font-size: 32px;
+            color: white;
+        }
+        
+        .card-title {
+            font-size: 22px;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .card-description {
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 25px 0;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .drive-link-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(106, 17, 203, 0.25);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        
+        .drive-link-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(106, 17, 203, 0.35);
+        }
+        
+        .drive-link-button:hover i {
+            transform: translateX(4px);
+        }
+        
+        .drive-link-button i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            padding: 5px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 3px 8px rgba(255, 107, 107, 0.25);
+        }
+        
+        /* Popup Styles */
+        .audio-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .audio-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .audio-popup-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transform: translateY(40px) scale(0.95);
+            opacity: 0;
+            transition: all 0.4s ease;
+            color: #333;
+            text-align: center;
+        }
+        
+        .audio-popup-overlay.active .audio-popup-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        .audio-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f5f5f5;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #666;
+            font-size: 13px;
+        }
+        
+        .audio-popup-close:hover {
+            background: #eaeaea;
+            transform: rotate(90deg);
+        }
+        
+        .audio-popup-title {
+            font-size: 20px;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+        }
+        
+        .audio-option-list {
+            list-style: none;
+            margin: 0 0 25px 0;
+            padding: 0;
+        }
+        
+        .audio-option-item {
+            margin-bottom: 12px;
+        }
+        
+        .audio-option-button {
+            display: block;
+            width: 100%;
+            padding: 15px 18px;
+            background: #f8f9fa;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            color: #333;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        
+        .audio-option-button:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+            border-color: #d0d9ff;
+        }
+        
+        .audio-option-button::after {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.2s ease;
+            color: #6a11cb;
+        }
+        
+        .audio-option-button:hover::after {
+            transform: translateY(-50%) translateX(3px);
+        }
+        
+        .audio-option-button span {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(106, 17, 203, 0.3); }
+            70% { box-shadow: 0 0 0 12px rgba(106, 17, 203, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(106, 17, 203, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="audio-lectures-card">
+        <div class="card-badge">NEW</div>
+        
+        <div class="card-icon-container">
+            <div class="card-icon-circle">
+                <i class="fas fa-headphones"></i>
+            </div>
+        </div>
+        
+        <h3 class="card-title">Audio Waz Lectures</h3>
+        
+        <p class="card-description">Access our exclusive collection of soul-touching audio lectures by Murshid Qibla</p>
+        
+        <button class="drive-link-button" id="audio-show-options">
+            <span>Access on Google Drive</span>
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- Popup for options -->
+    <div class="audio-popup-overlay" id="audio-popup-overlay">
+        <div class="audio-popup-content">
+            <div class="audio-popup-close" id="audio-close-popup">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <h3 class="audio-popup-title">Select Lecture Series</h3>
+            
+            <ul class="audio-option-list">
+                <li class="audio-option-item">
+                    <button class="audio-option-button" data-link="https://drive.google.com/drive/u/6/mobile/folders/1mEJmcJxqxt_W6L9aMCUWKaXos9lCHJsH?sort=13&direction=a">
+                        All Jumar Boyan 2023
+                        <span>Complete collection of Friday sermons from 2023</span>
+                    </button>
+                </li>
+                <li class="audio-option-item">
+                    <button class="audio-option-button" data-link="https://drive.google.com/drive/u/6/mobile/folders/1mEJmcJxqxt_W6L9aMCUWKaXos9lCHJsH?sort=13&direction=a">
+                        All Jumar Boyan 2024
+                        <span>Complete collection of Friday sermons from 2024</span>
+                    </button>
+                </li>
+                <li class="audio-option-item">
+                    <button class="audio-option-button" data-link="https://drive.google.com/drive/u/6/mobile/folders/1mEJmcJxqxt_W6L9aMCUWKaXos9lCHJsH?sort=13&direction=a">
+                        All Jumar Boyan 2025
+                        <span>Complete collection of Friday sermons from 2025</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Popup functionality
+        const showOptionsButton = document.getElementById('audio-show-options');
+        const popupOverlay = document.getElementById('audio-popup-overlay');
+        const closePopupButton = document.getElementById('audio-close-popup');
+        const optionButtons = document.querySelectorAll('.audio-option-button');
+        
+        showOptionsButton.addEventListener('click', () => {
+            popupOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closePopupButton.addEventListener('click', () => {
+            popupOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        popupOverlay.addEventListener('click', (e) => {
+            if (e.target === popupOverlay) {
+                popupOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        optionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const link = button.getAttribute('data-link');
+                window.open(link, '_blank');
+                popupOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
         <!-- About Section -->
         <section class="about-section content-container" id="about">
             <div class="about-image">
