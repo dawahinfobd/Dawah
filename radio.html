@@ -1,158 +1,526 @@
-<!DOCTYPE html>
+<!DOCTYPE html> h
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live YouTube Radio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    justify-content: center;
-  }
-  h1 {
-    margin: 20px 0;
-    font-size: 2rem;
-    text-align: center;
-  }
-  #radio-container {
-    background: rgba(0,0,0,0.6);
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    width: 90%;
-    max-width: 500px;
-  }
-  #live-title {
-    margin: 10px 0;
-    font-size: 1.2rem;
-  }
-  #thumbnail {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  #play-btn {
-    background: #ff3c3c;
-    border: none;
-    color: #fff;
-    padding: 12px 25px;
-    border-radius: 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  #waveform {
-    margin-top: 15px;
-    height: 20px;
-    display: flex;
-    gap: 3px;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  .bar {
-    width: 5px;
-    height: 5px;
-    background: #ff3c3c;
-    animation: bounce 1s infinite ease-in-out;
-  }
-  .bar:nth-child(2) { animation-delay: 0.1s; }
-  .bar:nth-child(3) { animation-delay: 0.2s; }
-  .bar:nth-child(4) { animation-delay: 0.3s; }
-  .bar:nth-child(5) { animation-delay: 0.4s; }
-  @keyframes bounce {
-    0%, 100% { height: 5px; }
-    50% { height: 20px; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Premium YouTube Live Radio</title>
+  <mehya name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Fonts for premium look -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3e57f9;
+      --secondary: #f72585;
+      --accent: #4cc9f0;
+      --live: #00ff99;
+      --dark: #22223b;
+      --light: #f7f7fa;
+      --bg-gradient: linear-gradient(135deg, #f7f7fa 0%, #4cc9f0 100%);
+      --shadow: 0 8px 36px 0 rgba(44,62,80,0.16);
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      font-family: 'Roboto', Arial, sans-serif;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .radio-shell {
+      background: var(--light);
+      border-radius: 38px 38px 48px 48px;
+      box-shadow: var(--shadow);
+      max-width: 380px;
+      width: 97vw;
+      margin: 56px 0 0 0;
+      padding: 0 0 28px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .radio-top {
+      width: 100%;
+      border-radius: 38px 38px 0 0;
+      background: linear-gradient(90deg, var(--primary) 60%, var(--secondary));
+      padding: 36px 0 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 22px #22223b13;
+      position: relative;
+    }
+    .live-badge {
+      position: absolute;
+      top: 15px;
+      right: 28px;
+      background: var(--live);
+      color: #222;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1em;
+      font-weight: bold;
+      padding: 7px 18px;
+      border-radius: 18px;
+      box-shadow: 0 2px 10px #00ff9922;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 2;
+    }
+    .live-badge.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .radio-dial {
+      width: 104px;
+      height: 104px;
+      background: linear-gradient(135deg, #fff, #f1faee 70%);
+      border: 8px solid var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 3px 18px #4cc9f038, 0 0px 1px #f7258544;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 9px;
+      position: relative;
+      overflow: hidden;
+    }
+    .visualizer {
+      position: absolute;
+      left: 0; right: 0; top: 0; bottom: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .bar {
+      width: 7px;
+      margin: 0 2px;
+      border-radius: 5px 5px 0 0;
+      background: linear-gradient(180deg, var(--accent), var(--secondary));
+      height: 20%;
+      transition: height 0.12s;
+      box-shadow: 0 2px 6px #4cc9f022;
+    }
+    .radio-title {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.4em;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--primary);
+      text-shadow: 0 1px 12px #22223b22;
+      margin: 0;
+      text-align: center;
+      background: linear-gradient(90deg, var(--accent), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+    .radio-sub {
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1.02em;
+      color: #f1faee;
+      opacity: 0.88;
+      text-align: center;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+    .nowplaying {
+      width: 89%;
+      background: #f1faee;
+      border-radius: 13px;
+      box-shadow: 0 1px 7px #22223b08;
+      margin: 0 0 18px 0;
+      padding: 14px 18px 11px 18px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      flex-wrap: wrap;
+      min-height: 40px;
+    }
+    .nowplaying-thumb {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #ccc;
+      box-shadow: 0 1px 4px #22223b15;
+    }
+    .nowplaying-meta {
+      flex: 1;
+      min-width: 0;
+    }
+    .nowplaying-title {
+      font-size: 1.05em;
+      font-weight: bold;
+      color: var(--primary);
+      font-family: 'Montserrat', Arial, sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .nowplaying-desc {
+      font-size: 0.95em;
+      color: #333;
+      opacity: 0.82;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .radio-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    .circle-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: #fff;
+      box-shadow: 0 2px 10px #4cc9f033;
+      border: none;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.07s;
+      outline: none;
+      margin: 0 7px;
+      position: relative;
+    }
+    .circle-btn:active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: scale(0.95);
+    }
+    .circle-btn[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .switch-btn {
+      margin-left: 6px;
+      width: 55px;
+      height: 33px;
+      border-radius: 22px;
+      background: #e9ecef;
+      border: none;
+      display: flex;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.18s;
+      box-shadow: 0 1px 6px #4cc9f033;
+    }
+    .switch-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: left 0.22s cubic-bezier(.69,-0.48,.46,1.49);
+      width: 27px;
+      height: 27px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      box-shadow: 0 2px 8px #4cc9f033;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1em;
+      z-index: 2;
+    }
+    .switch-btn.on .switch-knob {
+      left: 24px;
+      background: linear-gradient(135deg, var(--live), var(--secondary));
+      color: var(--dark);
+    }
+    .switch-label {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      z-index: 1;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: bold;
+      font-size: 0.98em;
+      color: #aaa;
+      pointer-events: none;
+      padding: 0 9px;
+      user-select: none;
+    }
+    .switch-btn.on .switch-label span:last-child {
+      color: var(--live);
+    }
+    .switch-btn:not(.on) .switch-label span:first-child {
+      color: var(--primary);
+    }
+    #audiostatus {
+      font-size: 1.09em;
+      margin: 8px 0 0 0;
+      text-align: center;
+      min-height: 27px;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+    }
+    .yt-link {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      background: rgba(62,87,249,0.07);
+      border-radius: 16px;
+      padding: 7px 15px;
+      margin-top: 18px;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.02em;
+      letter-spacing: 0.03em;
+      box-shadow: 0 1px 3px #4cc9f022;
+    }
+    .yt-link:hover {
+      background: rgba(62,87,249,0.13);
+      color: var(--secondary);
+    }
+    #ytplayer {
+      width: 1px;
+      height: 1px;
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      pointer-events: none;
+      opacity: 0;
+    }
+    @media (max-width: 500px) {
+      .radio-shell {
+        max-width: 100vw;
+        padding-bottom: 8px;
+      }
+      .nowplaying {
+        padding: 7px 7px 5px 7px;
+      }
+      .radio-dial {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  </style>
 </head>
 <body>
-<h1>Live YouTube Radio</h1>
-<div id="radio-container">
-  <img id="thumbnail" src="" alt="Live Thumbnail">
-  <div id="live-title">Checking live status...</div>
-  <div id="player"></div>
-  <button id="play-btn" disabled>Play Live</button>
-  <div id="waveform">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
+  <div class="radio-shell" role="region" aria-label="Radio Player">
+    <div class="radio-top">
+      <div class="live-badge" id="liveBadge">LIVE</div>
+      <div class="radio-dial">
+        <div class="visualizer" id="visualizer">
+          <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+          <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <!-- SVG: Radio dial -->
+        <svg viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="28" fill="#3e57f9" opacity="0.09"/>
+          <circle cx="28" cy="28" r="12" stroke="#3e57f9" stroke-width="2" fill="none"/>
+          <circle cx="28" cy="28" r="6" stroke="#f72585" stroke-width="3" fill="none"/>
+          <circle cx="28" cy="28" r="2" fill="#f72585"/>
+          <path d="M13 28a15 15 0 1 1 30 0" stroke="#f72585" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <div class="radio-title">PREMIUM LIVE RADIO</div>
+      <div class="radio-sub">Streaming from YouTube – <b>Audio Mode</b></div>
+    </div>
+
+    <!-- Now Playing -->
+    <div class="nowplaying">
+      <img id="nowThumb" class="nowplaying-thumb" src="https://yt3.ggpht.com/ytc/AAUvwngJ6b2oCqTyt5pQ=s48-c-k-c0x00ffffff-no-rj" alt="Now Playing">
+      <div class="nowplaying-meta">
+        <div class="nowplaying-title" id="nowTitle">Checking Live...</div>
+        <div class="nowplaying-desc" id="nowDesc"></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="radio-controls">
+      <button class="circle-btn" id="playBtn" title="Play" aria-label="Play" style="display:none;">
+        ▶
+      </button>
+      <button class="circle-btn" id="pauseBtn" title="Pause" aria-label="Pause" style="display:none;">
+        &#10073;&#10073;
+      </button>
+      <button class="switch-btn on" id="radioSwitch" aria-label="Radio On/Off" type="button">
+        <span class="switch-knob"><span id="switch-icon">&#128264;</span></span>
+        <span class="switch-label"><span>Off</span><span>On</span></span>
+      </button>
+    </div>
+
+    <div id="audiostatus">Checking for live stream...</div>
+    <!-- Audio Player (hidden YouTube iframe) -->
+    <iframe id="ytplayer" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen="false" tabindex="-1"></iframe>
+    <a class="yt-link" href="https://www.youtube.com/channel/UCfBw_uwZb_oFLyVsjWk6owQ/live" target="_blank" rel="noopener">
+      🎵 Open channel on YouTube
+    </a>
   </div>
-</div>
+  <script>
+    // --- Parameters
+    const channelId = "UCfBw_uwZb_oFLyVsjWk6owQ";
+    const apiKey = "AIzaSyAeaesQoH0URUMllWkFpLlv-n8fC9u-YhU";
+    const checkInterval = 30000; // 30 seconds
 
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-const CHANNEL_ID = "UCzX4j2n99EO4FYUarsmH8tg";
-const API_KEY = "AIzaSyDcMkpy4GPnies072jE8zlosKBJPxzkyXc";
+    // --- Elements
+    const status = document.getElementById("audiostatus");
+    const ytplayer = document.getElementById("ytplayer");
+    const playBtn = document.getElementById("playBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
+    const radioSwitch = document.getElementById("radioSwitch");
+    const switchIcon = document.getElementById("switch-icon");
+    const visualizer = document.getElementById("visualizer");
+    const liveBadge = document.getElementById("liveBadge");
+    const nowThumb = document.getElementById("nowThumb");
+    const nowTitle = document.getElementById("nowTitle");
+    const nowDesc = document.getElementById("nowDesc");
 
-let player;
-const liveTitle = document.getElementById("live-title");
-const thumbnail = document.getElementById("thumbnail");
-const playBtn = document.getElementById("play-btn");
+    // --- State
+    let currentVideoId = null;
+    let intervalId = null;
+    let isOn = true;
+    let isPlaying = false;
 
-// Fetch live video
-async function fetchLiveVideo() {
-  try {
-    const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&eventType=live&key=${API_KEY}`);
-    const data = await res.json();
-    if (data.items && data.items.length > 0) {
-      const videoId = data.items[0].id.videoId;
-      liveTitle.textContent = data.items[0].snippet.title;
-      thumbnail.src = data.items[0].snippet.thumbnails.high.url;
-
-      // If player exists, load new video
-      if(player) {
-        player.loadVideoById(videoId);
-      } else {
-        // Create YouTube player
-        player = new YT.Player('player', {
-          height: '0', // hidden for audio-only
-          width: '0',
-          videoId: videoId,
-          playerVars: {
-            autoplay: 0,
-            controls: 0,
-            mute: 1,
-          },
-          events: {
-            onReady: () => { playBtn.disabled = false; }
-          }
-        });
+    // --- Visualizer (Simulated)
+    function animateVisualizer(forceOff = false) {
+      if (forceOff) {
+        Array.from(visualizer.children).forEach(bar => bar.style.height = '20%');
+        return;
       }
-
-    } else {
-      liveTitle.textContent = "Channel is not live now";
-      thumbnail.src = "";
-      if(player) player.stopVideo();
-      playBtn.disabled = true;
+      Array.from(visualizer.children).forEach(bar => {
+        bar.style.height = (20 + Math.random() * 70) + '%';
+      });
     }
-  } catch(err) {
-    liveTitle.textContent = "Error fetching live status";
-    console.error(err);
-  }
-}
+    setInterval(() => { if (isPlaying && isOn) animateVisualizer(); else animateVisualizer(true); }, 120);
 
-// Play button
-playBtn.addEventListener("click", () => {
-  if(player) {
-    player.unMute();
-    player.playVideo();
-  }
-});
+    // --- YouTube API
+    async function getLiveVideoId(channelId) {
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=live&type=video&key=${apiKey}`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.items && data.items.length > 0) {
+          return data.items[0];
+        }
+      } catch (e) {
+        status.textContent = "⚠️ Could not check live status.";
+      }
+      return null;
+    }
+    // --- Set Now Playing Info
+    function setNowPlaying(item) {
+      if (!item) {
+        nowThumb.src = "https://yt3.ggpht.com/ytc/AAUvwngJ6b2oCqTyt5pQ=s48-c-k-c0x00ffffff-no-rj";
+        nowTitle.textContent = "No live stream";
+        nowDesc.textContent = "";
+        liveBadge.classList.remove("active");
+        return;
+      }
+      nowThumb.src = item.snippet.thumbnails.default.url;
+      nowTitle.textContent = item.snippet.title;
+      nowDesc.textContent = item.snippet.channelTitle;
+      liveBadge.classList.add("active");
+    }
+    // --- Player Control
+    function setPlayer(videoId) {
+      if (videoId && isOn) {
+        ytplayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1&playsinline=1&rel=0`;
+        status.innerHTML = `<span style="color:var(--primary)">🔊 Listening live!</span>`;
+        playBtn.style.display = "inline-flex";
+        pauseBtn.style.display = "inline-flex";
+        ytplayer.style.display = "";
+        isPlaying = true;
+        liveBadge.classList.add("active");
+      } else {
+        ytplayer.src = "";
+        if (isOn) {
+          status.innerHTML = `<span style="color:var(--primary)">⏸️ No live stream currently.</span>`;
+          liveBadge.classList.remove("active");
+        } else {
+          status.innerHTML = `<span style="color:var(--primary)">⏹️ Radio is OFF.</span>`;
+          liveBadge.classList.remove("active");
+        }
+        playBtn.style.display = "none";
+        pauseBtn.style.display = "none";
+        ytplayer.style.display = "none";
+        isPlaying = false;
+      }
+    }
+    playBtn.onclick = () => {
+      ytplayer.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      status.innerHTML = `<span style="color:var(--primary)">🔊 Listening live!</span>`;
+      isPlaying = true;
+    };
+    pauseBtn.onclick = () => {
+      ytplayer.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      status.innerHTML = `<span style="color:var(--primary)">⏸️ Radio paused.</span>`;
+      isPlaying = false;
+    };
 
-// Initial fetch
-fetchLiveVideo();
-// Check every 30 seconds
-setInterval(fetchLiveVideo, 30000);
-</script>
+    // --- Live Stream Polling
+    async function checkLive() {
+      if (!isOn) return;
+      const item = await getLiveVideoId(channelId);
+      if (item && item.id.videoId !== currentVideoId) {
+        currentVideoId = item.id.videoId;
+        setNowPlaying(item);
+        setPlayer(item.id.videoId);
+      } else if (!item) {
+        setNowPlaying(null);
+        setPlayer(null);
+      }
+    }
+    function startChecking() {
+      if (intervalId) clearInterval(intervalId);
+      checkLive();
+      intervalId = setInterval(checkLive, checkInterval);
+    }
+    function stopChecking() {
+      if (intervalId) clearInterval(intervalId);
+      currentVideoId = null;
+      setPlayer(null);
+      setNowPlaying(null);
+    }
+
+    // --- Animated Switch Button
+    radioSwitch.addEventListener("click", () => {
+      isOn = !isOn;
+      radioSwitch.classList.toggle("on", isOn);
+      switchIcon.textContent = isOn ? "🔊" : "🔇";
+      if (isOn) {
+        startChecking();
+      } else {
+        stopChecking();
+      }
+    });
+
+    // --- Prevent Download
+    ytplayer.addEventListener('contextmenu', e => e.preventDefault());
+    ytplayer.addEventListener('dragstart', e => e.preventDefault());
+    ytplayer.addEventListener('mousedown', e => e.preventDefault());
+    ytplayer.addEventListener('touchstart', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+      }
+    });
+
+    // --- Initial Setup
+    setNowPlaying(null);
+    startChecking();
+  </script>
 </body>
-  </html>
+</html>
