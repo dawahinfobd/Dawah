@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live YouTube Radio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+  }
+  h1 {
+    margin: 20px 0;
+    font-size: 2rem;
+    text-align: center;
+  }
+  #radio-container {
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+  }
+  #live-title {
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+  #thumbnail {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  #play-btn {
+    background: #ff3c3c;
+    border: none;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  #waveform {
+    margin-top: 15px;
+    height: 20px;
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  .bar {
+    width: 5px;
+    height: 5px;
+    background: #ff3c3c;
+    animation: bounce 1s infinite ease-in-out;
+  }
+  .bar:nth-child(2) { animation-delay: 0.1s; }
+  .bar:nth-child(3) { animation-delay: 0.2s; }
+  .bar:nth-child(4) { animation-delay: 0.3s; }
+  .bar:nth-child(5) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 100% { height: 5px; }
+    50% { height: 20px; }
+  }
+</style>
+</head>
+<body>
+<h1>Live YouTube Radio</h1>
+<div id="radio-container">
+  <img id="thumbnail" src="" alt="Live Thumbnail">
+  <div id="live-title">Checking live status...</div>
+  <div id="player"></div>
+  <button id="play-btn" disabled>Play Live</button>
+  <div id="waveform">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+const CHANNEL_ID = "UCzX4j2n99EO4FYUarsmH8tg";
+const API_KEY = "AIzaSyDcMkpy4GPnies072jE8zlosKBJPxzkyXc";
+
+let player;
+const liveTitle = document.getElementById("live-title");
+const thumbnail = document.getElementById("thumbnail");
+const playBtn = document.getElementById("play-btn");
+
+// Fetch live video
+async function fetchLiveVideo() {
+  try {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&eventType=live&key=${API_KEY}`);
+    const data = await res.json();
+    if (data.items && data.items.length > 0) {
+      const videoId = data.items[0].id.videoId;
+      liveTitle.textContent = data.items[0].snippet.title;
+      thumbnail.src = data.items[0].snippet.thumbnails.high.url;
+
+      // If player exists, load new video
+      if(player) {
+        player.loadVideoById(videoId);
+      } else {
+        // Create YouTube player
+        player = new YT.Player('player', {
+          height: '0', // hidden for audio-only
+          width: '0',
+          videoId: videoId,
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            mute: 1,
+          },
+          events: {
+            onReady: () => { playBtn.disabled = false; }
+          }
+        });
+      }
+
+    } else {
+      liveTitle.textContent = "Channel is not live now";
+      thumbnail.src = "";
+      if(player) player.stopVideo();
+      playBtn.disabled = true;
+    }
+  } catch(err) {
+    liveTitle.textContent = "Error fetching live status";
+    console.error(err);
+  }
+}
+
+// Play button
+playBtn.addEventListener("click", () => {
+  if(player) {
+    player.unMute();
+    player.playVideo();
+  }
+});
+
+// Initial fetch
+fetchLiveVideo();
+// Check every 30 seconds
+setInterval(fetchLiveVideo, 30000);
+</script>
+</body>
+  </html>
