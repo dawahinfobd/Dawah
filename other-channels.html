@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad - Dawah</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --primary: #1a936f;
+  --secondary: #88d498;
+  --accent: #f24236;
+  --light: #f9f7f3;
+  --dark: #114b5f;
+  --text: #2d2d2d;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --transition: all 0.3s ease;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* Header */
+header {
+  background: linear-gradient(135deg, var(--primary), var(--dark));
+  color: #fff;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: "";
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  background-size: cover; background-position: bottom;
+}
+header h1 { font-weight: 700; font-size: 2.5rem; margin-bottom: 0.5rem; position: relative; }
+header p { font-weight: 300; max-width: 600px; margin: 0 auto; opacity: 0.9; position: relative; }
+
+/* Search Bar */
+.search-container { max-width: 600px; margin: 2rem auto; padding: 0 1rem; position: relative; }
+.search-bar { width: 100%; padding: 0.75rem 1rem 0.75rem 3rem; border: none; border-radius: 50px; box-shadow: var(--shadow); font-size: 1rem; transition: var(--transition); }
+.search-bar:focus { outline: none; box-shadow: 0 0 0 3px rgba(26, 147, 111, 0.3); }
+.search-icon { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: #777; }
+
+/* Loading animation */
+.loading { display: flex; justify-content: center; padding: 2rem; }
+.loading-dots { display: flex; gap: 0.5rem; }
+.loading-dots div { width: 12px; height: 12px; border-radius: 50%; background: var(--primary); animation: bounce 1.5s infinite ease-in-out; }
+.loading-dots div:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots div:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-10px);} }
+
+/* Grid */
+main#channels { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; padding: 2rem 1rem; }
+
+/* Channel Card */
+.channel-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); display: flex; flex-direction: column; height: 100%; }
+.channel-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+.channel-image { height: 160px; overflow: hidden; position: relative; }
+.channel-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.channel-card:hover .channel-image img { transform: scale(1.05); }
+.channel-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+.channel-info h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--dark); }
+.channel-stats { margin-bottom: 1rem; font-size: 0.9rem; color: #666; display: flex; align-items: center; gap: 0.5rem; }
+.channel-action { margin-top: auto; }
+.view-channel { background: var(--primary); color: white; padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; }
+.view-channel:hover { background: var(--dark); transform: translateY(-2px); }
+
+/* Footer */
+footer { background: linear-gradient(to right, var(--dark), var(--primary)); color: #fff; text-align: center; padding: 2.5rem 1rem; margin-top: 4rem; }
+
+/* Responsive */
+@media(max-width: 992px) { main#channels { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
+@media (max-width: 768px) { header h1 { font-size: 2rem; } main#channels { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 1rem; } }
+
+/* Skeleton loading */
+.skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+.skeleton-text { height: 1rem; border-radius: 4px; margin-bottom: 0.5rem; }
+.skeleton-image { height: 160px; width: 100%; }
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Other Channels</h1>
+  <p>Discover inspiring content.</p>
+</header>
+
+<div class="search-container">
+  <i class="fas fa-search search-icon"></i>
+  <input type="text" id="searchInput" class="search-bar" placeholder="Search channels by name...">
+</div>
+
+<main id="channels">
+  <!-- Skeleton loading cards will be generated by JavaScript -->
+</main>
+
+<footer><p>© 2025 Islamic Content. All rights reserved.</p></footer>
+
+<script>
+// API keys rotation
+const apiKeys = [
+  "AIzaSyCfWHuPes6uIjy_ZNc3TFJAEP2Arc6s2Jg",
+  "AIzaSyBcvubE6Ho77kSvHUTxhgl3ygmBzF42ZXE",
+  "AIzaSyCmwizLQJYKaSMh0v9CnZowMbGGS6N4eM4",
+  "AIzaSyDTEj6Ke7rTDUN6VkPthVoX2j8vmDWw1V0",
+  "AIzaSyBkO6Htv--b7OX-WiKf5BJRt1GvTuEQDZA",
+  "AIzaSyDcMkpy4GPnies072jE8zlosKBJPxzkyXc"
+];
+let apiIndex = 0;
+function getApiKey() {
+  const key = apiKeys[apiIndex];
+  apiIndex = (apiIndex + 1) % apiKeys.length;
+  return key;
+}
+
+// Channel list
+const channels = [
+  { id: "UC2MPaxbqNB6C9B0LdaKCNCQ", url: "https://www.youtube.com/channel/UC2MPaxbqNB6C9B0LdaKCNCQ", name: "Muhammad Forhad Hossain Waz Bogura" },
+  { id: "UCpi38tr48jv2UxsgaW_-ZdQ", url: "https://www.youtube.com/channel/UCpi38tr48jv2UxsgaW_-ZdQ", name: "The Merciful Servant" },
+  { id: "UCH4y_DBJfvvIHPMC4VD9GiQ", url: "https://www.youtube.com/channel/UCH4y_DBJfvvIHPMC4VD9GiQ", name: "One Islam Productions" },
+  { id: "UCLT8RSQeAxlEbGEsmAa4guw", url: "https://www.youtube.com/channel/UCLT8RSQeAxlEbGEsmAa4guw", name: "Islamic Talks" },
+  { id: "UCT1FOapd0th98DBro-nbeOw", url: "https://www.youtube.com/channel/UCT1FOapd0th98DBro-nbeOw", name: "Islamic Channel" },
+  { id: "UCt9xYTwmWoKNxbRAcTDNtCw", url: "https://www.youtube.com/channel/UCt9xYTwmWoKNxbRAcTDNtCw", name: "Nouman Ali Khan" },
+   { id: "UCgrjNxDi25eGXzzRORhbXhg", url: "https://www.youtube.com/channel/UCgrjNxDi25eGXzzRORhbXhg", name: "Bayyinah Institute" },
+      { id: "UCSPN6jKSNmdWvNORgFsCrEQ", url: "https://www.youtube.com/channel/UCSPN6jKSNmdWvNORgFsCrEQ", name: "Islamic Talks" }, 
+ { id: "UCYzaoNWEJTU0AQ1BRXFm3VQ", url: "https://www.youtube.com/channel/UCYzaoNWEJTU0AQ1BRXFm3VQ", name: "Islamic Talks" }, 
+    { id: "UCdFO_kfMA2J-kp8qgoX_YWA", url: "https://www.youtube.com/channel/UCdFO_kfMA2J-kp8qgoX_YWA", name: "Islamic Talks" }, 
+     { id: "UCS9QkpfXXOOS1pb-8GX2XSw", url: "https://www.youtube.com/channel/UCS9QkpfXXOOS1pb-8GX2XSw", name: "Islamic Talks" },
+  { id: "UCABViWeVGfw4UXbjQmhpRNQ", url: "https://www.youtube.com/channel/UCABViWeVGfw4UXbjQmhpRNQ", name: "Islamic Talks" }, 
+ { id: "UCReuRCTYZ0vJhFB_zszk8ZQ", url: "https://www.youtube.com/channel/UCReuRCTYZ0vJhFB_zszk8ZQ", name: "Islamic Talks" }, 
+   { id: "UCkMiys5Emi_2y0k7IyEBQAw", url: "https://www.youtube.com/channel/UCkMiys5Emi_2y0k7IyEBQAw", name: "Islamic Talks" },
+    { id: "UCrv3SDYD-rq2U5R0KAM4p9Q", url: "https://www.youtube.com/channel/UCrv3SDYD-rq2U5R0KAM4p9Q", name: "Islamic Media" },
+   { id: "UCsH8OtLvfrDcHcn2PhsfwLg", url: "https://www.youtube.com/channel/UCsH8OtLvfrDcHcn2PhsfwLg", name: "Islamic Talks" }, 
+   { id: "UCvNSyyAKexJC5z5rEdwPRKg", url: "https://www.youtube.com/channel/UCvNSyyAKexJC5z5rEdwPRKg", name: "Islamic Lectures" },
+   { id: "UCq8kHmgw1qyQiHFf-_5G2Jg", url: "https://www.youtube.com/channel/UCq8kHmgw1qyQiHFf-_5G2Jg", name: "Islamic Talks" }, 
+   { id: "UCjDLvfifOfypGWn7uDTr9OQ", url: "https://www.youtube.com/channel/UCjDLvfifOfypGWn7uDTr9OQ", name: "Islamic Talks" },
+ { "id": "UC_Lgw-ZRaxVcxVVIpX32ayQ", "url": "https://www.youtube.com/channel/UC_Lgw-ZRaxVcxVVIpX32ayQ", "name": "Islamic Talks" },
+  { id: "UCCMHr7Mo2e4mmdz3Bd_3Vhw", url: "https://www.youtube.com/channel/UCCMHr7Mo2e4mmdz3Bd_3Vhw", name: "Islamic Talks" }, 
+  { id: "UCszmLB3DKK8Qetf7fvrIlDQ", url: "https://www.youtube.com/channel/UCszmLB3DKK8Qetf7fvrIlDQ", name: "Islamic Talks" }, 
+   { id: "UCwCfBZaL4YU1uu7VG-oARyA", url: "https://www.youtube.com/channel/UCwCfBZaL4YU1uu7VG-oARyA", name: "Islamic Talks" },
+    { id: "UCBKGe_5z2J2TVmlcVF0AdzQ", "url": "https://www.youtube.com/channel/UCBKGe_5z2J2TVmlcVF0AdzQ", name: "Islamic Talks" },
+    { id: "UCC2kwSwimD41gN3HVxhdElQ", url: "https://www.youtube.com/channel/UCC2kwSwimD41gN3HVxhdElQ", name: "Islamic Talks" }, 
+    { id: "UCYr7Bxmf6ZJeIXhHi66fIUg", url: "https://www.youtube.com/channel/UCYr7Bxmf6ZJeIXhHi66fIUg", name: "Islamic Talks" }, 
+  { id: "UC796llRLA6advugr04NTZng", url: "https://www.youtube.com/channel/UC796llRLA6advugr04NTZng", name: "Islamic Talks" }, 
+  { id: "UC1HrWcNGBErfZSyLbDqxggQ", url: "https://www.youtube.com/channel/UC1HrWcNGBErfZSyLbDqxggQ", name: "Islamic Talks" }, 
+   { id: "UCiZ5KNlMa0yestQ_xwIGTyw", url: "https://www.youtube.com/channel/UCiZ5KNlMa0yestQ_xwIGTyw", name: "Islamic Talks" }
+];
+
+const channelCache = {};
+
+// Create skeleton loading cards
+function createSkeletonCards() {
+  const container = document.getElementById("channels");
+  let html = '';
+  
+  for (let i = 0; i < channels.length; i++) {
+    html += `
+      <div class="channel-card">
+        <div class="channel-image"><div class="skeleton skeleton-image"></div></div>
+        <div class="channel-info">
+          <div class="skeleton skeleton-text" style="width: 80%"></div>
+          <div class="skeleton skeleton-text" style="width: 40%"></div>
+          <div class="channel-action">
+            <div class="skeleton skeleton-text" style="width: 120px; height: 36px; border-radius: 50px"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  container.innerHTML = html;
+}
+
+// Fetch channel details with retry logic
+async function getChannelDetails(channelId, retries = 3) {
+  if (channelCache[channelId]) return channelCache[channelId];
+  
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id=${channelId}&key=${getApiKey()}`);
+      
+      if (res.status === 403) {
+        // Quota exceeded, try next key
+        continue;
+      }
+      
+      const data = await res.json();
+      const channel = data.items?.[0] || null;
+      
+      if (channel) {
+        channelCache[channelId] = channel;
+        return channel;
+      }
+    } catch (error) {
+      console.error(`Error fetching channel ${channelId}:`, error);
+      if (i === retries - 1) return null;
+      
+      // Wait before retrying (exponential backoff)
+      await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+    }
+  }
+  
+  return null;
+}
+
+function formatNumber(num) {
+  if (!num) return "0";
+  return Intl.NumberFormat('en-US', { notation: num > 1000000 ? 'compact' : 'standard', maximumFractionDigits: 1 }).format(num);
+}
+
+// Render channels with progressive loading
+async function displayChannels(list = channels) {
+  const container = document.getElementById("channels");
+  createSkeletonCards();
+  
+  // Process channels in batches to avoid overwhelming the API
+  const batchSize = 5;
+  for (let i = 0; i < list.length; i += batchSize) {
+    const batch = list.slice(i, i + batchSize);
+    await Promise.all(batch.map(async (ch, index) => {
+      const c = await getChannelDetails(ch.id);
+      
+      const name = c?.snippet?.title || ch.name || "Unknown Channel";
+      const banner = c?.brandingSettings?.image?.bannerExternalUrl 
+                  || c?.snippet?.thumbnails?.high?.url 
+                  || "https://via.placeholder.com/600x200/114b5f/ffffff?text=Islamic+Channel";
+      const videos = c ? formatNumber(c.statistics?.videoCount) : "N/A";
+      
+      // Update the specific card
+      const cardIndex = i + index;
+      const cards = container.querySelectorAll('.channel-card');
+      if (cards[cardIndex]) {
+        cards[cardIndex].innerHTML = `
+          <div class="channel-image"><img src="${banner}" alt="${name}" loading="lazy"></div>
+          <div class="channel-info">
+            <h2>${name}</h2>
+            <div class="channel-stats"><span><i class="fa-solid fa-video"></i> ${videos} videos</span></div>
+            <div class="channel-action"><a href="${ch.url}" target="_blank" class="view-channel">View Channel <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
+          </div>
+        `;
+      }
+    }));
+    
+    // Add a small delay between batches to respect API rate limits
+    if (i + batchSize < list.length) {
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+  }
+}
+
+// Search with debouncing
+let searchTimeout;
+function debounceSearch() {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    const q = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = channels.filter(c => c.name.toLowerCase().includes(q));
+    displayChannels(filtered);
+  }, 300);
+}
+
+// Init
+document.addEventListener("DOMContentLoaded", () => {
+  displayChannels();
+  document.getElementById("searchInput").addEventListener("input", debounceSearch);
+});
+</script>
+</body>
+</html>
