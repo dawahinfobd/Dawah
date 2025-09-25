@@ -832,20 +832,68 @@
             background: var(--dark);
             transform: translateY(-3px);
         }
+        
+        
+        
+        
+        /* Other Channels Button */
+.other-channels-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.other-channels-button:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.5);
+    transform: translateY(-2px);
+}
+
+.header-content {
+    position: relative;
+    z-index: 5;
+}
+
+/* Adjust header padding for the button */
+header {
+    padding: 4rem 1rem 2.5rem;
+}
     </style>
 </head>
 <body>
 
 <header>
-    <h1>The Official YouTube Channels from HDSD</h1>
-    <p>Discover inspiring content from prominent Islamic educators and scholars.</p>
+    <button id="otherChannelsBtn" class="other-channels-button">
+        <i class="fa-solid fa-globe"></i> Other Channels
+    </button>
+    
+    <div class="header-content">
+        <h1>HDHD YouTube Channels (Official)</h1>
+        <p>Discover inspiring content.</p>
+    </div>
 </header>
 
 <div class="controls">
     <button id="playlistBtn"><i class="fa-solid fa-list"></i> Browse Playlists</button>
+    
     <div id="playlistPopup"></div>
     <div class="cache-status" id="cacheStatus" style="display: none;"></div>
 </div>
+
 
 <main id="channels">
     <div class="loading">
@@ -1607,6 +1655,16 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     displayChannels();
     loadPlaylists();
+});
+
+
+
+
+
+
+// Add this to your script
+document.getElementById('otherChannelsBtn').addEventListener('click', function() {
+    window.open('other-channels.html', '_blank');
 });
 </script>
 </body>
