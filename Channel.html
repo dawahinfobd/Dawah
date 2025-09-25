@@ -1,873 +1,969 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Islamic YouTube Channels Showcase</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-:root {
-  --primary: #1a936f;
-  --secondary: #88d498;
-  --accent: #f24236;
-  --light: #f9f7f3;
-  --dark: #114b5f;
-  --text: #2d2d2d;
-  --shadow: 0 4px 20px rgba(0,0,0,0.08);
-  --transition: all 0.3s ease;
-  --modal-header-height: 56px;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
-
-.arabic-font { font-family: 'Amiri', serif; }
-
-a { text-decoration: none; color: inherit; }
-
-img { display: block; max-width: 100%; }
-
-/* Header */ 
-header { 
-  background: linear-gradient(135deg, var(--primary), var(--dark)); 
-  color: #fff; 
-  padding: 2.5rem 1rem; 
-  text-align: center; 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
-  position: relative; 
-  overflow: hidden; 
-}
-
-header::before { 
-  content: ""; 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"); 
-  background-size: cover; 
-  background-position: bottom; 
-}
-
-header h1 { 
-  font-weight: 700; 
-  font-size: 2.5rem; 
-  letter-spacing: 1px; 
-  margin-bottom: 0.5rem; 
-  position: relative; 
-}
-
-header p { 
-  font-weight: 300; 
-  max-width: 600px; 
-  margin: 0 auto; 
-  opacity: 0.9; 
-  position: relative; 
-}
-
-/* Controls */ 
-.controls { 
-  display: flex; 
-  flex-wrap: wrap; 
-  justify-content: center; 
-  gap: 1rem; 
-  padding: 1.5rem; 
-  background: #fff; 
-  box-shadow: var(--shadow); 
-  border-radius: 16px; 
-  max-width: 1200px; 
-  margin: -1.5rem auto 2rem; 
-  position: relative; 
-  z-index: 10; 
-}
-
-.controls button { 
-  padding: 0.8rem 1.2rem; 
-  border-radius: 50px; 
-  border: none; 
-  outline: none; 
-  font-size: 1rem; 
-  font-weight: 600; 
-  cursor: pointer; 
-  transition: var(--transition); 
-  background: var(--light); 
-  color: var(--dark); 
-  display: flex; 
-  align-items: center; 
-  gap: 0.5rem; 
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-}
-
-.controls button:hover { 
-  background: var(--primary); 
-  color: white; 
-  transform: translateY(-2px); 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-}
-
-.controls button i { 
-  font-size: 1.2rem; 
-}
-
-/* Playlist popup */ 
-#playlistPopup { 
-  position: absolute; 
-  top: 100%; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  background: #fff; 
-  border-radius: 16px; 
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15); 
-  display: none; 
-  flex-direction: column; 
-  max-height: 300px; 
-  overflow-y: auto; 
-  z-index: 1000; 
-  margin-top: 0.5rem; 
-  width: 90%; 
-  max-width: 400px; 
-}
-
-#playlistPopup button { 
-  border: none; 
-  background: none; 
-  padding: 1rem 1.2rem; 
-  text-align: left; 
-  width: 100%; 
-  cursor: pointer; 
-  transition: var(--transition); 
-  font-size: 0.95rem; 
-  border-bottom: 1px solid #f0f0f0; 
-  display: flex; 
-  align-items: center; 
-  gap: 0.5rem; 
-}
-
-#playlistPopup button:last-child { 
-  border-bottom: none; 
-}
-
-#playlistPopup button:hover { 
-  background: #f8f8f8; 
-  color: var(--primary); 
-}
-
-#playlistPopup button i { 
-  color: var(--primary); 
-  font-size: 1.1rem; 
-}
-
-/* Loading animation */ 
-.loading { 
-  display: flex; 
-  justify-content: center; 
-  padding: 2rem; 
-}
-
-.loading-dots { 
-  display: flex; 
-  gap: 0.5rem; 
-}
-
-.loading-dots div { 
-  width: 12px; 
-  height: 12px; 
-  border-radius: 50%; 
-  background: var(--primary); 
-  animation: bounce 1.5s infinite ease-in-out; 
-}
-
-.loading-dots div:nth-child(2) { 
-  animation-delay: 0.2s; 
-}
-
-.loading-dots div:nth-child(3) { 
-  animation-delay: 0.4s; 
-}
-
-@keyframes bounce { 
-  0%, 100% { transform: translateY(0); } 
-  50% { transform: translateY(-10px); } 
-}
-
-/* Main Container */ 
-main#channels { 
-  max-width: 1200px; 
-  margin: 0 auto; 
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-  gap: 2rem; 
-  padding: 0 1rem; 
-}
-
-/* Channel Card */ 
-.channel-card { 
-  background: #fff; 
-  border-radius: 20px; 
-  overflow: hidden; 
-  box-shadow: var(--shadow); 
-  cursor: pointer; 
-  transition: var(--transition); 
-  position: relative; 
-}
-
-.channel-card:hover { 
-  transform: translateY(-8px); 
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15); 
-}
-
-.channel-image { 
-  height: 180px; 
-  overflow: hidden; 
-  position: relative; 
-}
-
-.channel-image img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
-  transition: transform 0.5s ease; 
-}
-
-.channel-card:hover .channel-image img { 
-  transform: scale(1.05); 
-}
-
-.channel-image::after { 
-  content: ""; 
-  position: absolute; 
-  bottom: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 50%; 
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); 
-}
-
-.channel-info { 
-  padding: 1.5rem; 
-}
-
-.channel-info h2 { 
-  font-size: 1.4rem; 
-  font-weight: 700; 
-  margin-bottom: 0.5rem; 
-  color: var(--dark); 
-}
-
-.channel-stats { 
-  display: flex; 
-  gap: 1rem; 
-  margin-bottom: 1rem; 
-  font-size: 0.9rem; 
-  color: #666; 
-}
-
-.channel-stats span { 
-  display: flex; 
-  align-items: center; 
-  gap: 0.3rem; 
-}
-
-.channel-description { 
-  color: #555; 
-  font-size: 0.95rem; 
-  line-height: 1.5; 
-  display: -webkit-box; 
-  -webkit-line-clamp: 3; 
-  -webkit-box-orient: vertical; 
-  overflow: hidden; 
-  margin-bottom: 1rem; 
-}
-
-.channel-action { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  margin-top: 1rem; 
-}
-
-.view-channel { 
-  background: var(--primary); 
-  color: white; 
-  padding: 0.6rem 1.2rem; 
-  border-radius: 50px; 
-  font-weight: 600; 
-  font-size: 0.9rem; 
-  transition: var(--transition); 
-}
-
-.view-channel:hover { 
-  background: var(--dark); 
-  transform: translateY(-2px); 
-}
-
-/* Modal for Videos - Enhanced to look like mobile YouTube app */
-.modal { 
-  display: none; 
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  background: rgba(0,0,0,0.9); 
-  justify-content: center; 
-  align-items: center; 
-  z-index: 2000; 
-  padding: 0; 
-  overflow: hidden; 
-  transition: 0.3s; 
-}
-
-.modal-content { 
-  position: relative; 
-  width: 100%; 
-  height: 100%; 
-  background: #fff; 
-  border-radius: 0; 
-  overflow: hidden; 
-  box-shadow: none; 
-  animation: modalFadeIn 0.3s ease; 
-  display: flex; 
-  flex-direction: column; 
-}
-
-@keyframes modalFadeIn { 
-  from { opacity: 0; transform: translateY(30px); } 
-  to { opacity: 1; transform: translateY(0); } 
-}
-
-.modal-header { 
-  padding: 0 1rem; 
-  background: #fff; 
-  color: var(--text); 
-  font-weight: 600; 
-  font-size: 1.1rem; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  height: var(--modal-header-height);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 10;
-}
-
-.modal-header .channel-title { 
-  display: flex; 
-  align-items: center; 
-  gap: 0.5rem; 
-  max-width: 70%;
-  overflow: hidden;
-}
-
-.modal-header .channel-title span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.modal-header .channel-actions { 
-  display: flex; 
-  gap: 0.5rem; 
-}
-
-.modal-header button { 
-  background: transparent; 
-  border: none; 
-  color: var(--text); 
-  width: 40px; 
-  height: 40px; 
-  border-radius: 50%; 
-  font-size: 1.2rem; 
-  cursor: pointer; 
-  transition: var(--transition); 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-}
-
-.modal-header button:hover { 
-  background: rgba(0,0,0,0.05); 
-}
-
-.modal-body { 
-  flex: 1;
-  display: flex; 
-  flex-direction: column; 
-  overflow: hidden;
-}
-
-.modal-iframe { 
-  flex: 1;
-  display: flex; 
-  justify-content: center; 
-  position: relative; 
-  background: #000; 
-  min-height: 0; /* Important for flex children */
-}
-
-.modal-iframe iframe { 
-  width: 100%; 
-  height: 100%; 
-  border: none; 
-  border-radius: 0; 
-}
-
-.modal-videos-container {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1rem;
-  background: #f9f9f9;
-}
-
-.modal-videos { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-  gap: 1.2rem; 
-}
-
-.modal-videos .video { 
-  border-radius: 12px; 
-  overflow: hidden; 
-  cursor: pointer; 
-  transition: var(--transition); 
-  background: #fff; 
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
-}
-
-.modal-videos .video:hover { 
-  transform: translateY(-5px); 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12); 
-}
-
-.modal-videos .video img { 
-  width: 100%; 
-  height: 150px; 
-  object-fit: cover; 
-}
-
-.modal-videos .video h4 { 
-  margin: 0.8rem; 
-  font-weight: 600; 
-  font-size: 0.95rem; 
-  line-height: 1.4; 
-  display: -webkit-box; 
-  -webkit-line-clamp: 2; 
-  -webkit-box-orient: vertical; 
-  overflow: hidden; 
-}
-
-/* Floating arrows */
-.modal-arrow { 
-  position: absolute; 
-  top: 50%; 
-  transform: translateY(-50%); 
-  font-size: 1.5rem; 
-  color: rgba(255,255,255,0.8); 
-  cursor: pointer; 
-  padding: 0.8rem; 
-  background: rgba(0,0,0,0.4); 
-  border-radius: 50%; 
-  user-select: none; 
-  transition: var(--transition); 
-  z-index: 10; 
-  width: 40px; 
-  height: 40px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-}
-
-.modal-arrow:hover { 
-  background: rgba(0,0,0,0.7); 
-  color: var(--secondary); 
-}
-
-#prevArrow { 
-  left: 10px; 
-}
-
-#nextArrow { 
-  right: 10px; 
-}
-
-/* Video pagination */ 
-.video-pagination { 
-  display: flex; 
-  justify-content: center; 
-  padding: 1rem; 
-  gap: 0.5rem; 
-  background: #f9f9f9; 
-  border-top: 1px solid #eee; 
-}
-
-.video-pagination button { 
-  padding: 0.5rem 1rem; 
-  border: none; 
-  background: #fff; 
-  border-radius: 8px; 
-  cursor: pointer; 
-  transition: var(--transition); 
-  font-weight: 600; 
-  color: var(--dark); 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-}
-
-.video-pagination button:hover { 
-  background: var(--primary); 
-  color: white; 
-}
-
-.video-pagination button.active { 
-  background: var(--primary); 
-  color: white; 
-}
-
-/* Footer */ 
-footer { 
-  background: linear-gradient(to right, var(--dark), var(--primary)); 
-  color: #fff; 
-  text-align: center; 
-  padding: 2.5rem 1rem; 
-  margin-top: 4rem; 
-  font-size: 0.95rem; 
-  position: relative; 
-  overflow: hidden; 
-}
-
-footer::before { 
-  content: ""; 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"); 
-  background-size: cover; 
-  background-position: bottom; 
-}
-
-footer p { 
-  position: relative; 
-  max-width: 600px; 
-  margin: 0 auto; 
-}
-
-/* Responsive Design */ 
-@media(max-width: 992px) { 
-  main#channels { 
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  }
-} 
-
-@media (max-width: 768px) { 
-  header h1 { 
-    font-size: 2rem; 
-  } 
-
-  .controls { 
-    margin: -1rem 1rem 2rem; 
-    padding: 1rem; 
-  } 
-
-  main#channels { 
-    grid-template-columns: 1fr; 
-  } 
-
-  .modal-videos { 
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-  } 
-
-  .modal-arrow { 
-    width: 35px; 
-    height: 35px; 
-    font-size: 1.2rem; 
-  } 
-
-  #prevArrow { 
-    left: 5px; 
-  } 
-
-  #nextArrow { 
-    right: 5px; 
-  } 
-} 
-
-@media (max-width: 480px) { 
-  header { 
-    padding: 2rem 1rem; 
-  } 
-
-  .channel-stats { 
-    flex-direction: column; 
-    gap: 0.5rem; 
-  } 
-
-  .modal-videos { 
-    grid-template-columns: 1fr; 
-  } 
-
-  .video-pagination { 
-    flex-wrap: wrap; 
-  } 
-
-  .modal-header .channel-actions { 
-    gap: 0.3rem; 
-  } 
-
-  .modal-header button { 
-    width: 35px; 
-    height: 35px; 
-    font-size: 1rem; 
-  } 
-}
-
-/* YouTube-like progress bar */
-.video-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: rgba(255,255,255,0.2);
-  z-index: 11;
-}
-
-.video-progress-bar {
-  height: 100%;
-  background: var(--accent);
-  width: 0%;
-  transition: width 0.3s linear;
-}
-
-/* Error message styling */
-.error-message {
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-}
-
-.error-message i {
-  font-size: 2rem;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-/* API error notification */
-.api-error {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--accent);
-  color: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  z-index: 3000;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-  from { transform: translateX(100px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-.api-error button {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: white;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 0.5rem;
-}
-
-/* Responsive video container for mobile */
-.video-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Desktop-specific modal sizing */
-@media (min-width: 769px) {
-  .modal-content {
-    width: 90%;
-    height: 90%;
-    border-radius: 12px;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic YouTube Channels Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a936f;
+            --secondary: #88d498;
+            --accent: #f24236;
+            --light: #f9f7f3;
+            --dark: #114b5f;
+            --text: #2d2d2d;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+            --modal-header-height: 56px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+
+        .arabic-font { font-family: 'Amiri', serif; }
+
+        a { text-decoration: none; color: inherit; }
+
+        img { display: block; max-width: 100%; }
+
+        /* Header */ 
+        header { 
+            background: linear-gradient(135deg, var(--primary), var(--dark)); 
+            color: #fff; 
+            padding: 2.5rem 1rem; 
+            text-align: center; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        header::before { 
+            content: ""; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"); 
+            background-size: cover; 
+            background-position: bottom; 
+        }
+
+        header h1 { 
+            font-weight: 700; 
+            font-size: 2.5rem; 
+            letter-spacing: 1px; 
+            margin-bottom: 0.5rem; 
+            position: relative; 
+        }
+
+        header p { 
+            font-weight: 300; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            opacity: 0.9; 
+            position: relative; 
+        }
+
+        /* Controls */ 
+        .controls { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 1rem; 
+            padding: 1.5rem; 
+            background: #fff; 
+            box-shadow: var(--shadow); 
+            border-radius: 16px; 
+            max-width: 1200px; 
+            margin: -1.5rem auto 2rem; 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .controls button { 
+            padding: 0.8rem 1.2rem; 
+            border-radius: 50px; 
+            border: none; 
+            outline: none; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            background: var(--light); 
+            color: var(--dark); 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+        }
+
+        .controls button:hover { 
+            background: var(--primary); 
+            color: white; 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+        }
+
+        .controls button i { 
+            font-size: 1.2rem; 
+        }
+
+        /* Playlist popup - Enhanced size and performance */
+        #playlistPopup { 
+            position: absolute; 
+            top: 100%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: #fff; 
+            border-radius: 16px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15); 
+            display: none; 
+            flex-direction: column; 
+            max-height: 500px; 
+            width: 90%; 
+            max-width: 600px; 
+            overflow-y: auto; 
+            z-index: 1000; 
+            margin-top: 0.5rem; 
+        }
+
+        #playlistPopup button { 
+            border: none; 
+            background: none; 
+            padding: 1rem 1.2rem; 
+            text-align: left; 
+            width: 100%; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            font-size: 0.95rem; 
+            border-bottom: 1px solid #f0f0f0; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+
+        #playlistPopup button:last-child { 
+            border-bottom: none; 
+        }
+
+        #playlistPopup button:hover { 
+            background: #f8f8f8; 
+            color: var(--primary); 
+        }
+
+        #playlistPopup button i { 
+            color: var(--primary); 
+            font-size: 1.1rem; 
+        }
+
+        /* Loading animation */ 
+        .loading { 
+            display: flex; 
+            justify-content: center; 
+            padding: 2rem; 
+        }
+
+        .loading-dots { 
+            display: flex; 
+            gap: 0.5rem; 
+        }
+
+        .loading-dots div { 
+            width: 12px; 
+            height: 12px; 
+            border-radius: 50%; 
+            background: var(--primary); 
+            animation: bounce 1.5s infinite ease-in-out; 
+        }
+
+        .loading-dots div:nth-child(2) { 
+            animation-delay: 0.2s; 
+        }
+
+        .loading-dots div:nth-child(3) { 
+            animation-delay: 0.4s; 
+        }
+
+        @keyframes bounce { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-10px); } 
+        }
+
+        /* Main Container */ 
+        main#channels { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
+            gap: 2rem; 
+            padding: 0 1rem; 
+        }
+
+        /* Channel Card */ 
+        .channel-card { 
+            background: #fff; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: var(--shadow); 
+            cursor: pointer; 
+            transition: var(--transition); 
+            position: relative; 
+        }
+
+        .channel-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15); 
+        }
+
+        .channel-image { 
+            height: 88px; 
+            overflow: hidden; 
+            position: relative; 
+        }
+
+        .channel-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.55s ease; 
+        }
+
+        .channel-card:hover .channel-image img { 
+            transform: scale(1.05); 
+        }
+
+        .channel-image::after { 
+            content: ""; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 50%; 
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); 
+        }
+
+        .channel-info { 
+            padding: 1.5rem; 
+        }
+
+        .channel-info h2 { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+            margin-bottom: 0.5rem; 
+            color: var(--dark); 
+        }
+
+        .channel-stats { 
+            display: flex; 
+            gap: 1rem; 
+            margin-bottom: 1rem; 
+            font-size: 0.9rem; 
+            color: #666; 
+        }
+
+        .channel-stats span { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.3rem; 
+        }
+
   
-  .modal-iframe {
-    max-height: 70vh;
-  }
-}
+        .channel-action { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-top: 1rem; 
+        }
 
-/* Mobile-specific modal sizing */
-@media (max-width: 768px) {
-  .modal-content {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .modal-iframe {
-    max-height: 30vh;
-  }
-}
+        .view-channel { 
+            background: var(--primary); 
+            color: white; 
+            padding: 0.6rem 1.2rem; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            transition: var(--transition); 
+        }
 
-/* Landscape mode adjustments */
-@media (max-height: 500px) and (orientation: landscape) {
-  .modal-content {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .modal-iframe {
-    max-height: 100vh;
-  }
-  
-  .modal-videos-container {
-    max-height: 50vh;
-  }
-}
+   
 
-/* Retry button styling */
-.retry-button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: var(--transition);
-}
+        /* Modal for Videos - Enhanced to look like mobile YouTube app */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.9); 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; 
+            padding: 0; 
+            overflow: hidden; 
+            transition: 0.3s; 
+        }
 
-.retry-button:hover {
-  background: var(--dark);
-}
+        .modal-content { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+            background: #fff; 
+            border-radius: 0; 
+            overflow: hidden; 
+            box-shadow: none; 
+            animation: modalFadeIn 0.3s ease; 
+            display: flex; 
+            flex-direction: column; 
+        }
 
-/* Cache status indicator */
-.cache-status {
-  font-size: 0.8rem;
-  color: #666;
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-</style>
+        @keyframes modalFadeIn { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .modal-header { 
+            padding: 0 1rem; 
+            background: #fff; 
+            color: var(--text); 
+            font-weight: 600; 
+            font-size: 1.1rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            height: var(--modal-header-height);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .modal-header .channel-title { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            max-width: 70%;
+            overflow: hidden;
+        }
+
+        .modal-header .channel-title span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-header .channel-actions { 
+            display: flex; 
+            gap: 0.5rem; 
+        }
+
+        .modal-header button { 
+            background: transparent; 
+            border: none; 
+            color: var(--text); 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
+        .modal-header button:hover { 
+            background: rgba(0,0,0,0.05); 
+        }
+
+        .modal-body { 
+            flex: 1;
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden;
+        }
+
+        .modal-iframe { 
+            flex: 1;
+            display: flex; 
+            justify-content: center; 
+            position: relative; 
+            background: #000; 
+            min-height: 0; /* Important for flex children */
+        }
+
+        .modal-iframe iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            border-radius: 0; 
+        }
+
+        .modal-videos-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f9f9f9;
+        }
+
+        .modal-videos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 1.2rem; 
+        }
+
+        .modal-videos .video { 
+            border-radius: 12px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            background: #fff; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
+        }
+
+        .modal-videos .video:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12); 
+        }
+
+        .modal-videos .video img { 
+            width: 100%; 
+            height: 150px; 
+            object-fit: cover; 
+        }
+
+        .modal-videos .video h4 { 
+            margin: 0.8rem; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            line-height: 1.4; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical; 
+            overflow: hidden; 
+        }
+
+        /* Floating arrows */
+        .modal-arrow { 
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            font-size: 1.5rem; 
+            color: rgba(255,255,255,0.8); 
+            cursor: pointer; 
+            padding: 0.8rem; 
+            background: rgba(0,0,0,0.4); 
+            border-radius: 50%; 
+            user-select: none; 
+            transition: var(--transition); 
+            z-index: 10; 
+            width: 40px; 
+            height: 40px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
+        .modal-arrow:hover { 
+            background: rgba(0,0,0,0.7); 
+            color: var(--secondary); 
+        }
+
+        #prevArrow { 
+            left: 10px; 
+        }
+
+        #nextArrow { 
+            right: 10px; 
+        }
+
+        /* Video pagination */ 
+        .video-pagination { 
+            display: flex; 
+            justify-content: center; 
+            padding: 1rem; 
+            gap: 0.5rem; 
+            background: #f9f9f9; 
+            border-top: 1px solid #eee; 
+        }
+
+        .video-pagination button { 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            background: #fff; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            font-weight: 600; 
+            color: var(--dark); 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        }
+
+        .video-pagination button:hover { 
+            background: var(--primary); 
+            color: white; 
+        }
+
+        .video-pagination button.active { 
+            background: var(--primary); 
+            color: white; 
+        }
+
+        /* Footer */ 
+        footer { 
+            background: linear-gradient(to right, var(--dark), var(--primary)); 
+            color: #fff; 
+            text-align: center; 
+            padding: 2.5rem 1rem; 
+            margin-top: 4rem; 
+            font-size: 0.95rem; 
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        footer::before { 
+            content: ""; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"); 
+            background-size: cover; 
+            background-position: bottom; 
+        }
+
+        footer p { 
+            position: relative; 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+
+        /* Responsive Design */ 
+        @media(max-width: 992px) { 
+            main#channels { 
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            }
+        } 
+
+        @media (max-width: 768px) { 
+            header h1 { 
+                font-size: 2rem; 
+            } 
+
+            .controls { 
+                margin: -1rem 1rem 2rem; 
+                padding: 1rem; 
+            } 
+
+            main#channels { 
+                grid-template-columns: 1fr; 
+            } 
+
+            .modal-videos { 
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            } 
+
+            .modal-arrow { 
+                width: 35px; 
+                height: 35px; 
+                font-size: 1.2rem; 
+            } 
+
+            #prevArrow { 
+                left: 5px; 
+            } 
+
+            #nextArrow { 
+                right: 5px; 
+            } 
+        } 
+
+        @media (max-width: 480px) { 
+            header { 
+                padding: 2rem 1rem; 
+            } 
+
+            .channel-stats { 
+                flex-direction: column; 
+                gap: 0.5rem; 
+            } 
+
+            .modal-videos { 
+                grid-template-columns: 1fr; 
+            } 
+
+            .video-pagination { 
+                flex-wrap: wrap; 
+            } 
+
+            .modal-header .channel-actions { 
+                gap: 0.3rem; 
+            } 
+
+            .modal-header button { 
+                width: 35px; 
+                height: 35px; 
+                font-size: 1rem; 
+            } 
+        }
+
+        /* YouTube-like progress bar */
+        .video-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            z-index: 11;
+        }
+
+        .video-progress-bar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s linear;
+        }
+
+        /* Error message styling */
+        .error-message {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .error-message i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* API error notification */
+        .api-error {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .api-error button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        /* Responsive video container for mobile */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Desktop-specific modal sizing */
+        @media (min-width: 769px) {
+            .modal-content {
+                width: 90%;
+                height: 90%;
+                border-radius: 12px;
+            }
+            
+            .modal-iframe {
+                max-height: 70vh;
+            }
+        }
+
+        /* Mobile-specific modal sizing */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 100%;
+                height: 100%;
+            }
+            
+            .modal-iframe {
+                max-height: 30vh;
+            }
+        }
+
+        /* Landscape mode adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .modal-content {
+                width: 100%;
+                height: 100%;
+            }
+            
+            .modal-iframe {
+                max-height: 100vh;
+            }
+            
+            .modal-videos-container {
+                max-height: 50vh;
+            }
+        }
+
+        /* Retry button styling */
+        .retry-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .retry-button:hover {
+            background: var(--dark);
+        }
+
+        /* Cache status indicator */
+        .cache-status {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        /* Playlist search/filter */
+        .playlist-search {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+        
+        .playlist-search input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .playlist-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Playlist grouping */
+        .playlist-group {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .playlist-group-header {
+            padding: 0.8rem 1.2rem;
+            background: #f8f8f8;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .playlist-group-header i {
+            color: var(--primary);
+        }
+        
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 <body>
 
 <header>
-  <h1>The Official YouTube Channels</h1>
-  <p>Discover inspiring content from prominent Islamic educators and scholars</p>
+    <h1>The Official YouTube Channels</h1>
+    <p>Discover inspiring content from prominent Islamic educators and scholars</p>
 </header>
 
 <div class="controls">
-  <button id="playlistBtn"><i class="fa-solid fa-list"></i> Browse Playlists</button>
-  <div id="playlistPopup"></div>
-  <div class="cache-status" id="cacheStatus" style="display: none;">
-    
-  </div>
+    <button id="playlistBtn"><i class="fa-solid fa-list"></i> Browse Playlists</button>
+    <div id="playlistPopup"></div>
+    <div class="cache-status" id="cacheStatus" style="display: none;"></div>
 </div>
 
 <main id="channels">
-  <div class="loading">
-    <div class="loading-dots">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="loading">
+        <div class="loading-dots">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-  </div>
 </main>
 
 <!-- Modal -->
 <div class="modal" id="videoModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="channel-title">
-        <i class="fa-solid fa-play"></i>
-        <span id="modalTitle">Channel Videos</span>
-      </div>
-      <div class="channel-actions">
-        <button id="backToGridBtn" title="Back to Videos" style="display:none;"><i class="fa-solid fa-grid-2"></i></button>
-        <button onclick="closeModal()" title="Close"><i class="fa-solid fa-xmark"></i></button>
-      </div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="channel-title">
+                <i class="fa-solid fa-play"></i>
+                <span id="modalTitle">Channel Videos</span>
+            </div>
+            <div class="channel-actions">
+                <button id="backToGridBtn" title="Back to Videos" style="display:none;"><i class="fa-solid fa-grid-2"></i></button>
+                <button onclick="closeModal()" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        
+        <div class="modal-body">
+            <div class="modal-iframe" id="modalIframeContainer" style="display: none;">
+                <div class="video-progress"><div class="video-progress-bar" id="videoProgress"></div></div>
+            </div>
+            
+            <div id="prevArrow" class="modal-arrow" onclick="prevPage()" style="display:none;"><i class="fa-solid fa-chevron-left"></i></div>
+            <div id="nextArrow" class="modal-arrow" onclick="nextPage()" style="display:none;"><i class="fa-solid fa-chevron-right"></i></div>
+            
+            <div class="modal-videos-container" id="modalVideosContainer">
+                <div class="modal-videos" id="modalVideos"></div>
+                <div class="video-pagination" id="videoPagination"></div>
+            </div>
+        </div>
     </div>
-    
-    <div class="modal-body">
-      <div class="modal-iframe" id="modalIframeContainer" style="display: none;">
-        <div class="video-progress"><div class="video-progress-bar" id="videoProgress"></div></div>
-      </div>
-      
-      <div id="prevArrow" class="modal-arrow" onclick="prevPage()" style="display:none;"><i class="fa-solid fa-chevron-left"></i></div>
-      <div id="nextArrow" class="modal-arrow" onclick="nextPage()" style="display:none;"><i class="fa-solid fa-chevron-right"></i></div>
-      
-      <div class="modal-videos-container" id="modalVideosContainer">
-        <div class="modal-videos" id="modalVideos"></div>
-        <div class="video-pagination" id="videoPagination"></div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <footer>
-  <p>© 2025 Ad - Dawah. All rights reserved.</p>
-
+    <p>© 2025 Ad - Dawah. All rights reserved.</p>
 </footer>
+
+<div class="scroll-top" id="scrollTopBtn">
+    <i class="fa-solid fa-chevron-up"></i>
+</div>
 
 <script>
 // Multiple API keys
 const apiKeys = [
-  "AIzaSyCfWHuPes6uIjy_ZNc3TFJAEP2Arc6s2Jg",
-  "AIzaSyBcvubE6Ho77kSvHUTxhgl3ygmBzF42ZXE",
-  "AIzaSyCmwizLQJYKaSMh0v9CnZowMbGGS6N4eM4",
-  "AIzaSyDTEj6Ke7rTDUN6VkPthVoX2j8vmDWw1V0",
-  "AIzaSyBkO6Htv--b7OX-WiKf5BJRt1GvTuEQDZA",
-  "AIzaSyDcMkpy4GPnies072jE8zlosKBJPxzkyXc"
+    "AIzaSyCfWHuPes6uIjy_ZNc3TFJAEP2Arc6s2Jg",
+    "AIzaSyBcvubE6Ho77kSvHUTxhgl3ygmBzF42ZXE",
+    "AIzaSyCmwizLQJYKaSMh0v9CnZowMbGGS6N4eM4",
+    "AIzaSyDTEj6Ke7rTDUN6VkPthVoX2j8vmDWw1V0",
+    "AIzaSyBkO6Htv--b7OX-WiKf5BJRt1GvTuEQDZA",
+    "AIzaSyDcMkpy4GPnies072jE8zlosKBJPxzkyXc"
 ];
 
 let apiIndex = 0;
 function getApiKey() { 
-  const key = apiKeys[apiIndex]; 
-  apiIndex = (apiIndex + 1) % apiKeys.length; 
-  return key; 
+    const key = apiKeys[apiIndex]; 
+    apiIndex = (apiIndex + 1) % apiKeys.length; 
+    return key; 
 }
 
-// Channel IDs
-const channelIds = [
-  "UCzX4j2n99EO4FYUarsmH8tg",
-  "UCzX4j2n99EO4FYUarsmH8tg",
-  "UClFCK07zGYvhy52UdYQ7pAg",
-  "UC0rohAQxHJb0KRWx_hf1-MA",
-  "UCjfffDjGLeYZ0k4KIHszlig",
-  "UC9581_ZfsdSH98hiDgW45xw",
-  "UChfsQFxL8uDhzDJdwmWkRdA"
+// Channel data with fallback image URLs
+const channelData = [
+    { 
+        id: "UCzX4j2n99EO4FYUarsmH8tg", 
+        name: "Zongi Sontrash Birodhi Waz D. Ashraf Siddique", 
+        bannerImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/c2e83d9e5aa01676d325d42d793c13a2d684e63a/Channel%20image%20banners/Zongisontrashbirodhiwaz%20.jpg",
+        placeholderImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/c2e83d9e5aa01676d325d42d793c13a2d684e63a/Channel%20image%20banners/Zongisontrashbirodhiwaz%20.jpg"
+    },
+    { 
+        id: "UClFCK07zGYvhy52UdYQ7pAg", 
+        name: "D. Ashraf Siddique Waz Collection", 
+        bannerImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/c2e83d9e5aa01676d325d42d793c13a2d684e63a/Channel%20image%20banners/D.%20Ashraf%20Alimullah%20Siddique%20waz%20collection%20.jpg",
+        placeholderImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/c2e83d9e5aa01676d325d42d793c13a2d684e63a/Channel%20image%20banners/D.%20Ashraf%20Alimullah%20Siddique%20waz%20collection%20.jpg"
+    },
+    { 
+        id: "UC0rohAQxHJb0KRWx_hf1-MA", 
+        name: "D. Ashraf Siddique Waz", 
+        bannerImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/D.%20Ashraf%20Siddique%20Waz.jpg",
+        placeholderImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/D.%20Ashraf%20Siddique%20Waz.jpg"
+    },
+    { 
+        id: "UCjfffDjGLeYZ0k4KIHszlig", 
+        name: "Ashraf Siddique Waz Collection", 
+        bannerImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/Ashraf%20Siddique%20Waz%20Collection.jpg",
+        placeholderImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/Ashraf%20Siddique%20Waz%20Collection.jpg"
+    },
+    { 
+        id: "UCwmwCc2lsr2qcbHWCL2FzdQ", 
+        name: "ড. আশরাফ সিদ্দিকী ওয়াজ কালেকশন", 
+        bannerImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/%E0%A6%A1.%20%E0%A6%86%E0%A6%B6%E0%A6%B0%E0%A6%BE%E0%A6%AB%20%E0%A6%B8%E0%A6%BF%E0%A6%A6%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%95%E0%A7%80%20%E0%A6%93%E0%A6%AF%E0%A6%BC%E0%A6%BE%E0%A6%9C%20%E0%A6%95%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%95%E0%A6%B6%E0%A6%A8.jpg",
+        placeholderImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/%E0%A6%A1.%20%E0%A6%86%E0%A6%B6%E0%A6%B0%E0%A6%BE%E0%A6%AB%20%E0%A6%B8%E0%A6%BF%E0%A6%A6%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%95%E0%A7%80%20%E0%A6%93%E0%A6%AF%E0%A6%BC%E0%A6%BE%E0%A6%9C%20%E0%A6%95%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%95%E0%A6%B6%E0%A6%A8.jpg"
+    },
+    { 
+        id: "UC9581_ZfsdSH98hiDgW45xw", 
+        name: "হক্বের দা'ওয়াত সিদ্দিকীয়া কেন্দ্রীয় কাছিদা গ্রুপ।", 
+        bannerImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/%E0%A6%B9%E0%A6%95%E0%A7%8D%E0%A6%AC%E0%A7%87%E0%A6%B0%20%E0%A6%A6%E0%A6%BE'%E0%A6%93%E0%A7%9F%E0%A6%BE%E0%A6%A4%20%E0%A6%B8%E0%A6%BF%E0%A6%A6%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%95%E0%A7%80%E0%A7%9F%E0%A6%BE%20%E0%A6%95%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A7%80%E0%A7%9F.jpg",
+        placeholderImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/%E0%A6%B9%E0%A6%95%E0%A7%8D%E0%A6%AC%E0%A7%87%E0%A6%B0%20%E0%A6%A6%E0%A6%BE'%E0%A6%93%E0%A7%9F%E0%A6%BE%E0%A6%A4%20%E0%A6%B8%E0%A6%BF%E0%A6%A6%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%95%E0%A7%80%E0%A7%9F%E0%A6%BE%20%E0%A6%95%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%8D%E0%A6%B0%E0%A7%80%E0%A7%9F.jpg"
+    },
+    { 
+        id: "UChfsQFxL8uDhzDJdwmWkRdA", 
+        name: "Qasida কাসিদা", 
+        bannerImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/Qasida%20%E0%A6%95%E0%A6%BE%E0%A6%B8%E0%A6%BF%E0%A6%A6%E0%A6%BE.jpg",
+        placeholderImage: "https://raw.githubusercontent.com/dawahinfobd/Dawah/dec9179c2efcdb0388eeb863b5577ea1dd8910cb/Channel%20image%20banners/Qasida%20%E0%A6%95%E0%A6%BE%E0%A6%B8%E0%A6%BF%E0%A6%A6%E0%A6%BE.jpg"
+    }
 ];
 
 // Cache for storing channel data and videos
 const channelCache = {
-  details: {},
-  videos: {}
+    details: {},
+    videos: {},
+    playlists: {}
 };
 
 let modalVideosList = [], currentPage = 0, pageSize = 9, currentVideoIndex = -1, 
@@ -877,519 +973,611 @@ let modalVideosList = [], currentPage = 0, pageSize = 9, currentVideoIndex = -1,
 const playlistBtn = document.getElementById("playlistBtn");
 const playlistPopup = document.getElementById("playlistPopup");
 const cacheStatus = document.getElementById("cacheStatus");
+const scrollTopBtn = document.getElementById("scrollTopBtn");
 
 playlistBtn.addEventListener("click", () => {
-  playlistPopup.style.display = playlistPopup.style.display === 'flex' ? 'none' : 'flex';
+    playlistPopup.style.display = playlistPopup.style.display === 'flex' ? 'none' : 'flex';
 });
 
 // Close popup when clicking outside
 document.addEventListener('click', (e) => {
-  if (!playlistBtn.contains(e.target) && !playlistPopup.contains(e.target)) {
-    playlistPopup.style.display = 'none';
-  }
+    if (!playlistBtn.contains(e.target) && !playlistPopup.contains(e.target)) {
+        playlistPopup.style.display = 'none';
+    }
+});
+
+// Scroll to top functionality
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // Fetch channels with better error handling and caching
 async function getChannelDetails(channelId, retryCount = 0) {
-  // Check cache first
-  if (channelCache.details[channelId]) {
-    cacheStatus.style.display = 'flex';
-    return channelCache.details[channelId];
-  }
-  
-  cacheStatus.style.display = 'none';
-  
-  try {
-    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id=${channelId}&key=${getApiKey()}`);
+    // Check cache first
+    if (channelCache.details[channelId]) {
+        cacheStatus.style.display = 'flex';
+        return channelCache.details[channelId];
+    }
     
-    if (!res.ok) {
-      if (res.status === 403) {
-        if (retryCount < 2) {
-          // Try with next API key
-          return getChannelDetails(channelId, retryCount + 1);
+    cacheStatus.style.display = 'none';
+    
+    try {
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id=${channelId}&key=${getApiKey()}`);
+        
+        if (!res.ok) {
+            if (res.status === 403) {
+                if (retryCount < 2) {
+                    // Try with next API key
+                    return getChannelDetails(channelId, retryCount + 1);
+                }
+                showApiError("API quota exceeded. Please try again in a moment.");
+                throw new Error(`API quota exceeded: ${res.status}`);
+            }
+            throw new Error(`HTTP error! status: ${res.status}`);
         }
-        showApiError("API quota exceeded. Please try again in a moment.");
-        throw new Error(`API quota exceeded: ${res.status}`);
-      }
-      throw new Error(`HTTP error! status: ${res.status}`);
+        
+        const data = await res.json(); 
+        const channelData = data.items ? data.items[0] : null;
+        
+        // Cache the result
+        if (channelData) {
+            channelCache.details[channelId] = channelData;
+        }
+        
+        return channelData;
+    } catch(e) {
+        console.error("Error fetching channel details:", e);
+        return null;
     }
-    
-    const data = await res.json(); 
-    const channelData = data.items ? data.items[0] : null;
-    
-    // Cache the result
-    if (channelData) {
-      channelCache.details[channelId] = channelData;
-    }
-    
-    return channelData;
-  } catch(e) {
-    console.error("Error fetching channel details:", e);
-    return null;
-  }
 }
 
 async function getChannelVideos(channelId, maxResults = 50, retryCount = 0) {
-  // Check cache first
-  if (channelCache.videos[channelId]) {
-    cacheStatus.style.display = 'flex';
-    return channelCache.videos[channelId];
-  }
-  
-  cacheStatus.style.display = 'none';
-  
-  try {
-    const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${getApiKey()}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`);
+    // Check cache first
+    if (channelCache.videos[channelId]) {
+        cacheStatus.style.display = 'flex';
+        return channelCache.videos[channelId];
+    }
     
-    if (!res.ok) {
-      if (res.status === 403) {
-        if (retryCount < 2) {
-          // Try with next API key
-          return getChannelVideos(channelId, maxResults, retryCount + 1);
+    cacheStatus.style.display = 'none';
+    
+    try {
+        // Filter out live streams by using type=video parameter
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${getApiKey()}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}&type=video`);
+        
+        if (!res.ok) {
+            if (res.status === 403) {
+                if (retryCount < 2) {
+                    // Try with next API key
+                    return getChannelVideos(channelId, maxResults, retryCount + 1);
+                }
+                showApiError("API quota exceeded. Please try again in a moment.");
+                throw new Error(`API quota exceeded: ${res.status}`);
+            }
+            throw new Error(`HTTP error! status: ${res.status}`);
         }
-        showApiError("API quota exceeded. Please try again in a moment.");
-        throw new Error(`API quota exceeded: ${res.status}`);
-      }
-      throw new Error(`HTTP error! status: ${res.status}`);
+        
+        const data = await res.json(); 
+        const videos = (data.items || []).filter(v => v.id.videoId);
+        
+        // Cache the result
+        if (videos.length > 0) {
+            channelCache.videos[channelId] = videos;
+        }
+        
+        return videos;
+    } catch(e) {
+        console.error("Error fetching channel videos:", e);
+        return [];
     }
-    
-    const data = await res.json(); 
-    const videos = (data.items || []).filter(v => v.id.videoId);
-    
-    // Cache the result
-    if (videos.length > 0) {
-      channelCache.videos[channelId] = videos;
-    }
-    
-    return videos;
-  } catch(e) {
-    console.error("Error fetching channel videos:", e);
-    return [];
-  }
 }
 
 async function displayChannels() {
-  const container = document.getElementById("channels");
-  container.innerHTML = `
-    <div class="loading">
-      <div class="loading-dots">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  `;
-  
-  let channelsHTML = '';
-  let channelsLoaded = 0;
-  
-  for (const id of channelIds) {
-    const c = await getChannelDetails(id); 
+    const container = document.getElementById("channels");
+    container.innerHTML = `
+        <div class="loading">
+            <div class="loading-dots">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    `;
     
-    if (!c) {
-      // If API fails, show a card that links directly to YouTube
-      channelsHTML += `
+    let channelsHTML = '';
+    let channelsLoaded = 0;
+    
+    for (const channel of channelData) {
+        const c = await getChannelDetails(channel.id); 
         
-      `;
-    } else {
-      const bannerUrl = c.brandingSettings?.image?.bannerExternalUrl || `https://via.placeholder.com/600x200/${c.snippet.title.split('').reduce((a, b) => {a = ((a << 5) - a) + b.charCodeAt(0); return a & a}, 0).toString(16).substr(-6)}/ffffff?text=${encodeURIComponent(c.snippet.title)}`;
-      
-      channelsHTML += `
-        <div class="channel-card" onclick="openChannel('${id}','${c.snippet.title.replace(/'/g, "\\'")}')">
-          <div class="channel-image">
-            <img src="${bannerUrl}" alt="${c.snippet.title}">
-          </div>
-          <div class="channel-info">
-            <h2>${c.snippet.title}</h2>
-            <div class="channel-stats">
-              
-              
-              <span><i class="fa-solid fa-video"></i> ${formatNumber(c.statistics?.videoCount) || "N/A"}</span>
+        // Always show the channel card, even if API fails
+        const channelName = c ? c.snippet.title : channel.name;
+        
+        // Use custom banner image if API fails, otherwise use YouTube banner
+        const bannerUrl = c ? (c.brandingSettings?.image?.bannerExternalUrl || channel.bannerImage) 
+                            : channel.bannerImage;
+        
+        channelsHTML += `
+            <div class="channel-card" onclick="openChannel('${channel.id}','${channelName.replace(/'/g, "\\'")}')">
+                <div class="channel-image">
+                    <img src="${bannerUrl}" alt="${channelName}" onerror="this.src='${channel.placeholderImage}'">
+                </div>
+                <div class="channel-info">
+                    <h2>${channelName}</h2>
+                    <div class="channel-stats">
+                        <span><i class="fa-solid fa-video"></i> ${c ? formatNumber(c.statistics?.videoCount) || "N/A" : "N/A"}</span>
+                    </div>
+                
+                    <div class="channel-action">
+                        <div class="view-channel">View Channel</div>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
             </div>
-          
-            <div class="channel-action">
-              <div class="view-channel">View Channel</div>
-              <i class="fa-solid fa-arrow-right"></i>
-            </div>
-          </div>
-        </div>
-      `;
+        `;
+        
+        channelsLoaded++;
+        
+        // Update loading progress
+        if (channelsLoaded < channelData.length) {
+            container.innerHTML = channelsHTML + `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 1rem;">
+                    <div class="loading-dots" style="justify-content: center;">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <p>Loading ${channelsLoaded} of ${channelData.length} channels...</p>
+                </div>
+            `;
+        }
     }
     
-    channelsLoaded++;
-    
-    // Update loading progress
-    if (channelsLoaded < channelIds.length) {
-      container.innerHTML = channelsHTML + `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 1rem;">
-          <div class="loading-dots" style="justify-content: center;">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <p>Loading ${channelsLoaded} of ${channelIds.length} channels...</p>
-        </div>
-      `;
-    }
-  }
-  
-  container.innerHTML = channelsHTML || `<div class="error-message">No channels available at the moment. Please try again later.</div>`;
+    container.innerHTML = channelsHTML || `<div class="error-message">No channels available at the moment. Please try again later.</div>`;
 }
 
 function formatNumber(num) {
-  if (!num) return "0";
-  return Intl.NumberFormat('en-US', {
-    notation: num > 1000000 ? 'compact' : 'standard',
-    maximumFractionDigits: 1
-  }).format(num);
+    if (!num) return "0";
+    return Intl.NumberFormat('en-US', {
+        notation: num > 1000000 ? 'compact' : 'standard',
+        maximumFractionDigits: 1
+    }).format(num);
 }
 
-// Open modal
+// Open modal or redirect to YouTube if API fails
 async function openChannel(id, title) {
-  currentChannelId = id;
-  showLoadingInModal();
-  
-  try {
-    currentChannelDetails = await getChannelDetails(id);
-    modalVideosList = await getChannelVideos(id, 50); 
-    
-    if (!modalVideosList.length) {
-      // Show retry option instead of automatically redirecting
-      document.getElementById("modalVideos").innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
-          <i class="fa-solid fa-video-slash" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
-          <h3>No videos available</h3>
-          <p>We couldn't load videos for this channel. This might be due to API limitations.</p>
-          <button class="retry-button" onclick="retryLoadVideos('${id}', '${title.replace(/'/g, "\\'")}')">
-            <i class="fa-solid fa-rotate"></i> Try Again
-          </button>
-          <p style="margin-top: 1rem;">Or</p>
-          <button class="retry-button" onclick="window.open('https://www.youtube.com/channel/${id}', '_blank'); closeModal();">
-            <i class="fa-brands fa-youtube"></i> View on YouTube
-          </button>
-        </div>
-      `;
-      return;
+    // Try to load channel details and videos
+    try {
+        currentChannelId = id;
+        showLoadingInModal();
+        
+        currentChannelDetails = await getChannelDetails(id);
+        modalVideosList = await getChannelVideos(id, 50); 
+        
+        if (!modalVideosList.length) {
+            // If no videos loaded, redirect to YouTube
+            window.open(`https://www.youtube.com/channel/${id}`, '_blank');
+            closeModal();
+            return;
+        }
+        
+        currentPage = 0; 
+        currentVideoIndex = -1; 
+        inVideoMode = false; 
+        showModal(title); 
+        displayModalVideos();
+        setupPagination();
+    } catch (error) {
+        // If API fails, redirect to YouTube
+        window.open(`https://www.youtube.com/channel/${id}`, '_blank');
+        closeModal();
     }
-    
-    currentPage = 0; 
-    currentVideoIndex = -1; 
-    inVideoMode = false; 
-    showModal(title); 
-    displayModalVideos();
-    setupPagination();
-  } catch (error) {
-    document.getElementById("modalVideos").innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
-        <i class="fa-solid fa-exclamation-triangle" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
-        <h3>Error loading channel</h3>
-        <p>There was a problem loading this channel's content.</p>
-        <button class="retry-button" onclick="retryLoadVideos('${id}', '${title.replace(/'/g, "\\'")}')">
-          <i class="fa-solid fa-rotate"></i> Try Again
-        </button>
-      </div>
-    `;
-  }
 }
 
 function retryLoadVideos(id, title) {
-  // Clear cache for this channel to force fresh fetch
-  delete channelCache.videos[id];
-  openChannel(id, title);
+    // Clear cache for this channel to force fresh fetch
+    delete channelCache.videos[id];
+    openChannel(id, title);
 }
 
 function showLoadingInModal() {
-  document.getElementById("modalVideos").innerHTML = `
-    <div style="grid-column: 1 / -1; padding: 2rem; text-align: center;">
-      <div class="loading-dots" style="justify-content: center;">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <p>Loading videos...</p>
-    </div>
-  `;
+    document.getElementById("modalVideos").innerHTML = `
+        <div style="grid-column: 1 / -1; padding: 2rem; text-align: center;">
+            <div class="loading-dots" style="justify-content: center;">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p>Loading videos...</p>
+        </div>
+    `;
 }
 
 function showModal(title) {
-  document.getElementById("modalTitle").innerText = title;
-  document.getElementById("modalIframeContainer").innerHTML = "";
-  document.getElementById("modalIframeContainer").style.display = "none";
-  document.getElementById("modalVideosContainer").style.display = "block";
-  document.getElementById("videoModal").style.display = "flex";
-  document.getElementById("backToGridBtn").style.display = "none";
-  document.getElementById("prevArrow").style.display = "none";
-  document.getElementById("nextArrow").style.display = "none";
-  document.getElementById("videoPagination").style.display = "none";
-  document.body.style.overflow = "hidden";
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalIframeContainer").innerHTML = "";
+    document.getElementById("modalIframeContainer").style.display = "none";
+    document.getElementById("modalVideosContainer").style.display = "block";
+    document.getElementById("videoModal").style.display = "flex";
+    document.getElementById("backToGridBtn").style.display = "none";
+    document.getElementById("prevArrow").style.display = "none";
+    document.getElementById("nextArrow").style.display = "none";
+    document.getElementById("videoPagination").style.display = "none";
+    document.body.style.overflow = "hidden";
 }
 
 function displayModalVideos() {
-  const start = currentPage * pageSize;
-  const end = start + pageSize;
-  const videos = modalVideosList.slice(start, end);
-  const container = document.getElementById("modalVideos"); 
-  container.style.display = "grid";
-  
-  container.innerHTML = videos.map((v, i) => `
-    <div class="video" onclick="playVideoByIndex(${start + i})">
-      <img src="${v.snippet.thumbnails.medium?.url || v.snippet.thumbnails.default?.url || 'https://via.placeholder.com/320x180/cccccc/969696?text=No+Thumbnail'}" alt="${v.snippet.title}">
-      <h4>${v.snippet.title}</h4>
-    </div>
-  `).join("");
-  
-  document.getElementById("videoPagination").style.display = "flex";
+    const start = currentPage * pageSize;
+    const end = start + pageSize;
+    const videos = modalVideosList.slice(start, end);
+    const container = document.getElementById("modalVideos"); 
+    container.style.display = "grid";
+    
+    container.innerHTML = videos.map((v, i) => `
+        <div class="video" onclick="playVideoByIndex(${start + i})">
+            <img src="${v.snippet.thumbnails.medium?.url || v.snippet.thumbnails.default?.url || 'https://via.placeholder.com/320x180/cccccc/969696?text=No+Thumbnail'}" alt="${v.snippet.title}" onerror="this.src='https://via.placeholder.com/320x180/cccccc/969696?text=No+Thumbnail'">
+            <h4>${v.snippet.title}</h4>
+        </div>
+    `).join("");
+    
+    document.getElementById("videoPagination").style.display = "flex";
 }
 
 function setupPagination() {
-  const totalPages = Math.ceil(modalVideosList.length / pageSize);
-  const paginationContainer = document.getElementById("videoPagination");
-  
-  if (totalPages <= 1) {
-    paginationContainer.style.display = "none";
-    return;
-  }
-  
-  let paginationHTML = "";
-  
-  // Previous button
-  paginationHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 0 ? 'disabled' : ''}><i class="fa-solid fa-chevron-left"></i></button>`;
-  
-  // Page numbers
-  for (let i = 0; i < totalPages; i++) {
-    paginationHTML += `<button onclick="changePage(${i})" class="${i === currentPage ? 'active' : ''}">${i + 1}</button>`;
-  }
-  
-  // Next button
-  paginationHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages - 1 ? 'disabled' : ''}><i class="fa-solid fa-chevron-right"></i></button>`;
-  
-  paginationContainer.innerHTML = paginationHTML;
+    const totalPages = Math.ceil(modalVideosList.length / pageSize);
+    const paginationContainer = document.getElementById("videoPagination");
+    
+    if (totalPages <= 1) {
+        paginationContainer.style.display = "none";
+        return;
+    }
+    
+    let paginationHTML = "";
+    
+    // Previous button
+    paginationHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 0 ? 'disabled' : ''}><i class="fa-solid fa-chevron-left"></i></button>`;
+    
+    // Page numbers
+    for (let i = 0; i < totalPages; i++) {
+        paginationHTML += `<button onclick="changePage(${i})" class="${i === currentPage ? 'active' : ''}">${i + 1}</button>`;
+    }
+    
+    // Next button
+    paginationHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages - 1 ? 'disabled' : ''}><i class="fa-solid fa-chevron-right"></i></button>`;
+    
+    paginationContainer.innerHTML = paginationHTML;
 }
 
 function changePage(page) {
-  const totalPages = Math.ceil(modalVideosList.length / pageSize);
-  if (page < 0 || page >= totalPages) return;
-  
-  currentPage = page;
-  displayModalVideos();
-  setupPagination();
-  document.getElementById("modalVideosContainer").scrollTop = 0;
+    const totalPages = Math.ceil(modalVideosList.length / pageSize);
+    if (page < 0 || page >= totalPages) return;
+    
+    currentPage = page;
+    displayModalVideos();
+    setupPagination();
+    document.getElementById("modalVideosContainer").scrollTop = 0;
 }
 
 async function playVideoByIndex(i) {
-  if (i < 0 || i >= modalVideosList.length) return;
-  
-  currentVideoIndex = i; 
-  inVideoMode = true;
-  
-  const videoId = modalVideosList[i].id.videoId;
-  
-  // Clear previous iframe
-  document.getElementById("modalIframeContainer").innerHTML = `
-    <div class="video-progress"><div class="video-progress-bar" id="videoProgress"></div></div>
-  `;
-  
-  // Create responsive video container
-  const videoContainer = document.createElement('div');
-  videoContainer.className = 'video-container';
-  
-  const iframe = document.createElement('iframe');
-  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-  iframe.allowFullscreen = true;
-  
-  videoContainer.appendChild(iframe);
-  document.getElementById("modalIframeContainer").appendChild(videoContainer);
-  document.getElementById("modalIframeContainer").style.display = "flex";
-  document.getElementById("modalVideosContainer").style.display = "none";
-  
-  // Simulate progress bar
-  simulateProgressBar();
-  
-  document.getElementById("backToGridBtn").style.display = "inline-block";
-  document.getElementById("prevArrow").style.display = currentVideoIndex === 0 ? 'none' : 'flex';
-  document.getElementById("nextArrow").style.display = currentVideoIndex === modalVideosList.length - 1 ? 'none' : 'flex';
-  document.getElementById("videoPagination").style.display = "none";
-  
-  // Scroll to top of modal
-  document.querySelector('.modal-body').scrollTop = 0;
+    if (i < 0 || i >= modalVideosList.length) return;
+    
+    currentVideoIndex = i; 
+    inVideoMode = true;
+    
+    const videoId = modalVideosList[i].id.videoId;
+    
+    // Clear previous iframe
+    document.getElementById("modalIframeContainer").innerHTML = `
+        <div class="video-progress"><div class="video-progress-bar" id="videoProgress"></div></div>
+    `;
+    
+    // Create responsive video container
+    const videoContainer = document.createElement('div');
+    videoContainer.className = 'video-container';
+    
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+    
+    videoContainer.appendChild(iframe);
+    document.getElementById("modalIframeContainer").appendChild(videoContainer);
+    document.getElementById("modalIframeContainer").style.display = "flex";
+    document.getElementById("modalVideosContainer").style.display = "none";
+    
+    // Simulate progress bar
+    simulateProgressBar();
+    
+    document.getElementById("backToGridBtn").style.display = "inline-block";
+    document.getElementById("prevArrow").style.display = currentVideoIndex === 0 ? 'none' : 'flex';
+    document.getElementById("nextArrow").style.display = currentVideoIndex === modalVideosList.length - 1 ? 'none' : 'flex';
+    document.getElementById("videoPagination").style.display = "none";
+    
+    // Scroll to top of modal
+    document.querySelector('.modal-body').scrollTop = 0;
 }
 
 function simulateProgressBar() {
-  const progressBar = document.getElementById('videoProgress');
-  let width = 0;
-  const interval = setInterval(() => {
-    if (width >= 100) {
-      clearInterval(interval);
-    } else {
-      width += 0.5;
-      progressBar.style.width = width + '%';
-    }
-  }, 100);
+    const progressBar = document.getElementById('videoProgress');
+    let width = 0;
+    const interval = setInterval(() => {
+        if (width >= 100) {
+            clearInterval(interval);
+        } else {
+            width += 0.5;
+            progressBar.style.width = width + '%';
+        }
+    }, 100);
 }
 
 function backToGrid() {
-  inVideoMode = false; 
-  document.getElementById("modalIframeContainer").innerHTML = ""; 
-  document.getElementById("modalIframeContainer").style.display = "none";
-  document.getElementById("modalVideosContainer").style.display = "block";
-  displayModalVideos(); 
-  document.getElementById("backToGridBtn").style.display = "none";
-  document.getElementById("videoPagination").style.display = "flex";
-  document.getElementById("prevArrow").style.display = "none";
-  document.getElementById("nextArrow").style.display = "none";
+    inVideoMode = false; 
+    document.getElementById("modalIframeContainer").innerHTML = ""; 
+    document.getElementById("modalIframeContainer").style.display = "none";
+    document.getElementById("modalVideosContainer").style.display = "block";
+    displayModalVideos(); 
+    document.getElementById("backToGridBtn").style.display = "none";
+    document.getElementById("videoPagination").style.display = "flex";
+    document.getElementById("prevArrow").style.display = "none";
+    document.getElementById("nextArrow").style.display = "none";
 }
 
 function nextPage() {
-  if (inVideoMode) {
-    if (currentVideoIndex < modalVideosList.length - 1) playVideoByIndex(currentVideoIndex + 1);
-  } else {
-    changePage(currentPage + 1);
-  }
+    if (inVideoMode) {
+        if (currentVideoIndex < modalVideosList.length - 1) playVideoByIndex(currentVideoIndex + 1);
+    } else {
+        changePage(currentPage + 1);
+    }
 }
 
 function prevPage() {
-  if (inVideoMode) {
-    if (currentVideoIndex > 0) playVideoByIndex(currentVideoIndex - 1);
-  } else {
-    changePage(currentPage - 1);
-  }
+    if (inVideoMode) {
+        if (currentVideoIndex > 0) playVideoByIndex(currentVideoIndex - 1);
+    } else {
+        changePage(currentPage - 1);
+    }
 }
 
 function closeModal() {
-  document.getElementById("videoModal").style.display = "none"; 
-  document.getElementById("modalIframeContainer").innerHTML = ""; 
-  document.getElementById("modalVideos").innerHTML = ""; 
-  modalVideosList = []; 
-  currentPage = 0; 
-  currentVideoIndex = -1; 
-  inVideoMode = false; 
-  document.body.style.overflow = "auto";
-}
-
-// Load playlists in popup
-async function loadPlaylists() {
-  playlistPopup.innerHTML = `
-    <button style="justify-content: center;">
-      <div class="loading-dots">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </button>
-  `;
-  
-  let playlistsHTML = "";
-  
-  for (const id of channelIds) {
-    const c = await getChannelDetails(id); 
-    if (!c) continue;
-    
-    try {
-      const res = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=${id}&maxResults=25&key=${getApiKey()}`);
-      if (!res.ok) continue;
-      
-      const data = await res.json(); 
-      if (data.items) {
-        data.items.forEach(pl => {
-          playlistsHTML += `
-            <button onclick="openPlaylist('${pl.id}', '${pl.snippet.title.replace(/'/g, "\\'")}', '${id}')">
-              <i class="fa-solid fa-list-ul"></i>
-              <span>${pl.snippet.title} (${c.snippet.title})</span>
-            </button>
-          `;
-        });
-      }
-    } catch (error) {
-      console.error("Error loading playlists:", error);
-    }
-  }
-  
-  playlistPopup.innerHTML = playlistsHTML || `
-    <button style="justify-content: center;">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <span>No playlists available</span>
-    </button>
-  `;
-}
-
-async function openPlaylist(playlistId, title, channelId) {
-  currentChannelId = channelId;
-  playlistPopup.style.display = 'none';
-  showLoadingInModal();
-  
-  try {
-    const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=50&key=${getApiKey()}`);
-    if (!res.ok) throw new Error("Failed to fetch playlist");
-    
-    const data = await res.json();
-    modalVideosList = data.items.filter(i => i.snippet.resourceId.videoId).map(i => ({
-      id: { videoId: i.snippet.resourceId.videoId }, 
-      snippet: {
-        title: i.snippet.title,
-        thumbnails: { 
-          medium: { url: i.snippet.thumbnails.medium?.url || i.snippet.thumbnails.default?.url || 'https://via.placeholder.com/320x180/cccccc/969696?text=No+Thumbnail' }
-        }
-      }
-    }));
-    
-    if (!modalVideosList.length) {
-      document.getElementById("modalVideos").innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
-          <i class="fa-solid fa-video-slash" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
-          <h3>No videos in this playlist</h3>
-          <button class="retry-button" onclick="window.open('https://www.youtube.com/channel/${channelId}', '_blank'); closeModal();">
-            <i class="fa-brands fa-youtube"></i> View on YouTube
-          </button>
-        </div>
-      `;
-      return;
-    }
-    
+    document.getElementById("videoModal").style.display = "none"; 
+    document.getElementById("modalIframeContainer").innerHTML = ""; 
+    document.getElementById("modalVideos").innerHTML = ""; 
+    modalVideosList = []; 
     currentPage = 0; 
     currentVideoIndex = -1; 
     inVideoMode = false; 
-    showModal(title); 
-    displayModalVideos();
-    setupPagination();
-  } catch (error) {
-    document.getElementById("modalVideos").innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
-        <i class="fa-solid fa-exclamation-triangle" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
-        <h3>Error loading playlist</h3>
-        <p>There was a problem loading this playlist's content.</p>
-        <button class="retry-button" onclick="window.open('https://www.youtube.com/channel/${channelId}', '_blank'); closeModal();">
-          <i class="fa-brands fa-youtube"></i> View on YouTube
+    document.body.style.overflow = "auto";
+}
+
+// Load playlists in popup - Optimized with caching and search
+async function loadPlaylists() {
+    playlistPopup.innerHTML = `
+        <div class="playlist-search">
+            <input type="text" id="playlistSearch" placeholder="Search playlists...">
+        </div>
+        <button style="justify-content: center;">
+            <div class="loading-dots">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </button>
-      </div>
     `;
-  }
+    
+    // Add search functionality
+    const searchInput = document.getElementById('playlistSearch');
+    searchInput.addEventListener('input', filterPlaylists);
+    
+    let playlistsHTML = "";
+    const channelPlaylists = {};
+    
+    // Fetch playlists for each channel in parallel
+    const playlistPromises = channelData.map(async (channel) => {
+        if (channelCache.playlists[channel.id]) {
+            return { channelId: channel.id, playlists: channelCache.playlists[channel.id] };
+        }
+        
+        try {
+            const res = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=${channel.id}&maxResults=25&key=${getApiKey()}`);
+            if (!res.ok) return { channelId: channel.id, playlists: [] };
+            
+            const data = await res.json(); 
+            const playlists = data.items || [];
+            
+            // Cache the result
+            channelCache.playlists[channel.id] = playlists;
+            
+            return { channelId: channel.id, playlists };
+        } catch (error) {
+            console.error("Error loading playlists:", error);
+            return { channelId: channel.id, playlists: [] };
+        }
+    });
+    
+    const results = await Promise.all(playlistPromises);
+    
+    // Group playlists by channel
+    results.forEach(result => {
+        if (result.playlists.length > 0) {
+            channelPlaylists[result.channelId] = result.playlists;
+        }
+    });
+    
+    // Generate HTML for playlists grouped by channel
+    for (const [channelId, playlists] of Object.entries(channelPlaylists)) {
+        const channelDetails = await getChannelDetails(channelId);
+        const channelName = channelDetails ? channelDetails.snippet.title : channelData.find(c => c.id === channelId)?.name || "Unknown Channel";
+        
+        playlistsHTML += `
+            <div class="playlist-group">
+                <div class="playlist-group-header">
+                    <i class="fa-solid fa-user"></i>
+                    <span>${channelName}</span>
+                </div>
+        `;
+        
+        playlists.forEach(pl => {
+            playlistsHTML += `
+                <button onclick="openPlaylist('${pl.id}', '${pl.snippet.title.replace(/'/g, "\\'")}', '${channelId}')">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>${pl.snippet.title}</span>
+                </button>
+            `;
+        });
+        
+        playlistsHTML += `</div>`;
+    }
+    
+    playlistPopup.innerHTML = `
+        <div class="playlist-search">
+            <input type="text" id="playlistSearch" placeholder="Search playlists...">
+        </div>
+        ${playlistsHTML || `
+            <div style="padding: 2rem; text-align: center;">
+                <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; color: #ccc; margin-bottom: 1rem;"></i>
+                <p>No playlists available</p>
+            </div>
+        `}
+    `;
+    
+    // Reattach search functionality
+    document.getElementById('playlistSearch').addEventListener('input', filterPlaylists);
+}
+
+function filterPlaylists() {
+    const searchTerm = this.value.toLowerCase();
+    const playlistButtons = playlistPopup.querySelectorAll('.playlist-group button');
+    const playlistGroups = playlistPopup.querySelectorAll('.playlist-group');
+    
+    let anyVisible = false;
+    
+    playlistGroups.forEach(group => {
+        const buttons = group.querySelectorAll('button');
+        let groupHasVisible = false;
+        
+        buttons.forEach(button => {
+            const text = button.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                button.style.display = 'flex';
+                groupHasVisible = true;
+                anyVisible = true;
+            } else {
+                button.style.display = 'none';
+            }
+        });
+        
+        // Show/hide group header based on whether it has visible playlists
+        const header = group.querySelector('.playlist-group-header');
+        if (header) {
+            header.style.display = groupHasVisible ? 'flex' : 'none';
+        }
+        
+        group.style.display = groupHasVisible ? 'block' : 'none';
+    });
+    
+    // Show message if no playlists match the search
+    const noResultsMsg = playlistPopup.querySelector('.no-results');
+    if (!anyVisible && searchTerm) {
+        if (!noResultsMsg) {
+            const msg = document.createElement('div');
+            msg.className = 'no-results';
+            msg.style.padding = '2rem';
+            msg.style.textAlign = 'center';
+            msg.innerHTML = `
+                <i class="fa-solid fa-search" style="font-size: 2rem; color: #ccc; margin-bottom: 1rem;"></i>
+                <p>No playlists match your search</p>
+            `;
+            playlistPopup.appendChild(msg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+}
+
+async function openPlaylist(playlistId, title, channelId) {
+    currentChannelId = channelId;
+    playlistPopup.style.display = 'none';
+    showLoadingInModal();
+    
+    try {
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=50&key=${getApiKey()}`);
+        if (!res.ok) throw new Error("Failed to fetch playlist");
+        
+        const data = await res.json();
+        modalVideosList = data.items.filter(i => i.snippet.resourceId.videoId).map(i => ({
+            id: { videoId: i.snippet.resourceId.videoId }, 
+            snippet: {
+                title: i.snippet.title,
+                thumbnails: { 
+                    medium: { url: i.snippet.thumbnails.medium?.url || i.snippet.thumbnails.default?.url || 'https://via.placeholder.com/320x180/cccccc/969696?text=No+Thumbnail' }
+                }
+            }
+        }));
+        
+        if (!modalVideosList.length) {
+            document.getElementById("modalVideos").innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                    <i class="fa-solid fa-video-slash" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                    <h3>No videos in this playlist</h3>
+                    <button class="retry-button" onclick="window.open('https://www.youtube.com/channel/${channelId}', '_blank'); closeModal();">
+                        <i class="fa-brands fa-youtube"></i> View on YouTube
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        currentPage = 0; 
+        currentVideoIndex = -1; 
+        inVideoMode = false; 
+        showModal(title); 
+        displayModalVideos();
+        setupPagination();
+    } catch (error) {
+        document.getElementById("modalVideos").innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                <i class="fa-solid fa-exclamation-triangle" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Error loading playlist</h3>
+                <p>There was a problem loading this playlist's content.</p>
+                <button class="retry-button" onclick="window.open('https://www.youtube.com/channel/${channelId}', '_blank'); closeModal();">
+                    <i class="fa-brands fa-youtube"></i> View on YouTube
+                </button>
+            </div>
+        `;
+    }
 }
 
 // Show API error notification
 function showApiError(message) {
-  // Remove existing error if any
-  const existingError = document.querySelector('.api-error');
-  if (existingError) {
-    existingError.remove();
-  }
-  
-  const errorDiv = document.createElement('div');
-  errorDiv.className = 'api-error';
-  errorDiv.innerHTML = `
-    <i class="fa-solid fa-circle-exclamation"></i>
-    <span>${message}</span>
-    <button onclick="this.parentElement.remove()">Dismiss</button>
-  `;
-  
-  document.body.appendChild(errorDiv);
-  
-  // Auto remove after 5 seconds
-  setTimeout(() => {
-    if (errorDiv.parentElement) {
-      errorDiv.remove();
+    // Remove existing error if any
+    const existingError = document.querySelector('.api-error');
+    if (existingError) {
+        existingError.remove();
     }
-  }, 5000);
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'api-error';
+    errorDiv.innerHTML = `
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">Dismiss</button>
+    `;
+    
+    document.body.appendChild(errorDiv);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (errorDiv.parentElement) {
+            errorDiv.remove();
+        }
+    }, 5000);
 }
 
 // Mobile swipe support
@@ -1397,28 +1585,28 @@ let startX = 0;
 const modalIframe = document.getElementById("modalIframeContainer");
 modalIframe.addEventListener("touchstart", e => { startX = e.touches[0].clientX; });
 modalIframe.addEventListener("touchend", e => { 
-  const endX = e.changedTouches[0].clientX; 
-  if (endX - startX > 50) prevPage(); 
-  else if (startX - endX > 50) nextPage(); 
+    const endX = e.changedTouches[0].clientX; 
+    if (endX - startX > 50) prevPage(); 
+    else if (startX - endX > 50) nextPage(); 
 });
 
 // Close modal with ESC key
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && document.getElementById('videoModal').style.display === 'flex') {
-    closeModal();
-  }
-  
-  // Keyboard navigation in video mode
-  if (inVideoMode) {
-    if (e.key === 'ArrowLeft') prevPage();
-    if (e.key === 'ArrowRight') nextPage();
-  }
+    if (e.key === 'Escape' && document.getElementById('videoModal').style.display === 'flex') {
+        closeModal();
+    }
+    
+    // Keyboard navigation in video mode
+    if (inVideoMode) {
+        if (e.key === 'ArrowLeft') prevPage();
+        if (e.key === 'ArrowRight') nextPage();
+    }
 });
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  displayChannels();
-  loadPlaylists();
+    displayChannels();
+    loadPlaylists();
 });
 </script>
 </body>
