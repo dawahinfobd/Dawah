@@ -584,18 +584,7 @@
         text-overflow: ellipsis;
     }
     
-    .media-date {
-        font-size: 0.85rem;
-        color: var(--text-light);
-        display: flex;
-        align-items: center;
-    }
-    
-    .media-date i {
-        margin-right: 5px;
-        font-size: 0.8rem;
-    }
-    
+
     .media-player {
         width: 100%;
         padding: 0 18px 18px;
@@ -723,7 +712,7 @@
     }
     
     .featured-content {
-        background: #ffffff, 
+        
                     url('https://raw.githubusercontent.com/dawahinfobd/Dawah/1dfd4a38c5e4f3b9a13138aa2cc812b4f16b9d07/Slideshow/S1.png') no-repeat center center;
         background-size: cover;
         border-radius: 15px;
@@ -1094,17 +1083,11 @@
     
     <!-- Main Content -->
     <main>
-        
         <!-- Media Content Section -->
         <section class="content-container" id="content">
             <div class="section-title">
                 <h2>Islamic Knowledge Repository</h2>
             </div>
-            
-            
-            
-            
-            
             
             <!-- Enhanced Tab Navigation -->
             <div class="content-tabs" role="tablist">
@@ -1140,7 +1123,7 @@
                     </button>
                     <button class="category-btn" data-category="Murshid Qibla: Ham Nats">
                         <i class="fas fa-music"></i> Ham Nats
-                    </button> 
+                    </button>
                     <button class="category-btn" onclick="window.location.href='radio.html'">
                         <i class="fas fa-ellipsis-h"></i> Others
                     </button>
@@ -1229,16 +1212,36 @@
             </div>
         </section>
         
-        <!-- Featured Content -->
+     <!-- Featured Content -->
         <section class="featured-section">
             <div class="content-container">
                 <div class="featured-content">
-                    <h2 class="featured-title">Stay Connected with Official YouTube Channels:</h2>
+                    
+                    
+                    
+        <style>
+           .card-badge2 {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            
+            border-radius: 9px;
+            color: #ff000a;
+               }
+        </style> 
+        <div class="card-badge2"><svg width="24" height="24" viewBox="0 0 24 24" fill="red">
+  <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+</svg></div>  
+
+ <h2 class="featured-title">Stay Connected with Official YouTube Channels:</h2>
+                    
+                    
                     <p class="featured-description">Gain authentic knowledge daily with Murshid Qibla’s Waz Clips on Jumar Boyans, exclusive nightly Mahfil's lectures, and insightful Q&A sessions etc.</p>
-                    <a href="Channel.html" class="featured-btn">View the channels</a>
+                    <a href="Channel.html" class="featured-btn">View the channels <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>
+
 
 
 
@@ -1254,18 +1257,18 @@
     <title>Audio Lectures Card</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Audio Lectures Card Styles - Scoped to prevent conflicts */
-        .audio-lectures-card-container {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        /* Scoped styles to prevent conflicts */
+        #audio-lectures-card-container {
+            font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, Oxygen, Ubuntu, Cantarell, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 10vh;
             padding: 20px;
-            background: #00000d0;
+            background: transparent;
         }
         
-        .audio-lectures-card {
+        #audio-lectures-card {
             background: #6aff783e;
             border-radius: 15px;
             padding: 30px 25px;
@@ -1280,16 +1283,16 @@
             backdrop-filter: blur(10px);
         }
         
-        .audio-lectures-card:hover {
+        #audio-lectures-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
         
-        .card-icon-container {
+        #audio-card-icon-container {
             margin-bottom: 20px;
         }
         
-        .card-icon-circle {
+        #audio-card-icon-circle {
             width: 80px;
             height: 80px;
             margin: 0 auto;
@@ -1303,12 +1306,12 @@
             box-shadow: 0 6px 15px rgba(106, 17, 203, 0.3);
         }
         
-        .card-icon-circle i {
+        #audio-card-icon-circle i {
             font-size: 32px;
             color: white;
         }
         
-        .card-title {
+        #audio-card-title {
             font-size: 24px;
             margin: 0 0 15px 0;
             font-weight: 700;
@@ -1318,7 +1321,7 @@
             line-height: 1.2;
         }
         
-        .card-description {
+        #audio-card-description {
             font-size: 15px;
             line-height: 1.6;
             margin: 0 0 25px 0;
@@ -1326,7 +1329,7 @@
             font-weight: 400;
         }
         
-        .drive-link-button {
+        #audio-drive-link-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -1348,36 +1351,36 @@
             font-size: 15px;
         }
         
-        .drive-link-button:hover {
+        #audio-drive-link-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
         }
         
-        .drive-link-button:hover i {
+        #audio-drive-link-button:hover i {
             transform: translateX(4px);
         }
         
-        .drive-link-button i {
+        #audio-drive-link-button i {
             margin-left: 10px;
             transition: transform 0.3s ease;
             font-size: 14px;
         }
         
-        .card-badge {
+        #audio-card-badge {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
             padding: 6px 12px;
             border-radius: 16px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             color: white;
             box-shadow: 0 3px 8px rgba(255, 107, 107, 0.25);
         }
         
         /* Popup Styles */
-        .audio-popup-overlay {
+        #audio-popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -1394,16 +1397,17 @@
             backdrop-filter: blur(5px);
         }
         
-        .audio-popup-overlay.active {
+        #audio-popup-overlay.active {
             opacity: 1;
             visibility: visible;
         }
         
-        .audio-popup-content {
+        #audio-popup-content {
             background: white;
             border-radius: 20px;
             width: 90%;
             max-width: 400px;
+            max-height: 80vh;
             padding: 30px 25px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             position: relative;
@@ -1412,14 +1416,35 @@
             transition: all 0.4s ease;
             color: #333;
             text-align: center;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #6a11cb #f1f1f1;
         }
         
-        .audio-popup-overlay.active .audio-popup-content {
+        #audio-popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #audio-popup-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        #audio-popup-content::-webkit-scrollbar-thumb {
+            background: #6a11cb;
+            border-radius: 10px;
+        }
+        
+        #audio-popup-content::-webkit-scrollbar-thumb:hover {
+            background: #2575fc;
+        }
+        
+        #audio-popup-overlay.active #audio-popup-content {
             transform: translateY(0) scale(1);
             opacity: 1;
         }
         
-        .audio-popup-close {
+        #audio-popup-close {
             position: absolute;
             top: 15px;
             right: 15px;
@@ -1436,12 +1461,12 @@
             font-size: 14px;
         }
         
-        .audio-popup-close:hover {
+        #audio-popup-close:hover {
             background: #eaeaea;
             transform: rotate(90deg);
         }
         
-        .audio-popup-title {
+        #audio-popup-title {
             font-size: 22px;
             margin: 0 0 25px 0;
             font-weight: 700;
@@ -1451,7 +1476,7 @@
             line-height: 1.3;
         }
         
-        .audio-option-list {
+        #audio-option-list {
             list-style: none;
             margin: 0 0 25px 0;
             padding: 0;
@@ -1509,6 +1534,63 @@
             font-weight: 400;
         }
         
+        /* Exclusive Content Section */
+        #audio-exclusive-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        #audio-exclusive-title {
+            font-size: 18px;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+            color: #6a11cb;
+            text-align: left;
+        }
+        
+        #audio-exclusive-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .audio-exclusive-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            padding: 12px 8px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-align: center;
+            min-height: 70px;
+        }
+        
+        .audio-exclusive-button:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+            border-color: #d0d9ff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .audio-exclusive-button i {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #6a11cb;
+        }
+        
+        .audio-exclusive-button span {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
         /* Animations */
         @keyframes audio-card-pulse {
             0% { box-shadow: 0 0 0 0 rgba(106, 17, 203, 0.3); }
@@ -1518,40 +1600,43 @@
         
         /* Responsive adjustments */
         @media (max-width: 480px) {
-            .audio-lectures-card {
+            #audio-lectures-card {
                 width: 100%;
                 max-width: 340px;
                 padding: 25px 20px;
             }
             
-            
-            .audio-popup-content {
+            #audio-popup-content {
                 padding: 25px 20px;
             }
             
-            .card-title {
+            #audio-card-title {
                 font-size: 22px;
+            }
+            
+            #audio-exclusive-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <!-- Container for easy placement on any website -->
-    <div class="audio-lectures-card-container">
-        <div class="audio-lectures-card">
-            <div class="card-badge">NEW</div>
+    <div id="audio-lectures-card-container">
+        <div id="audio-lectures-card">
+            <div id="audio-card-badge">NEW</div>
             
-            <div class="card-icon-container">
-                <div class="card-icon-circle">
+            <div id="audio-card-icon-container">
+                <div id="audio-card-icon-circle">
                     <i class="fas fa-headphones"></i>
                 </div>
             </div>
             
-            <h3 class="card-title">Jumar Boyans</h3>
+            <h3 id="audio-card-title">Jumar Boyans</h3>
             
-            <p class="card-description">Access our exclusive collection of soul-touching audio lectures.</p>
+            <p id="audio-card-description">Access our exclusive collection of soul-touching audio lectures.</p>
             
-            <button class="drive-link-button" id="audio-show-options">
+            <button id="audio-drive-link-button">
                 <span>Access to the lectures</span>
                 <i class="fas fa-arrow-right"></i>
             </button>
@@ -1559,53 +1644,93 @@
     </div>
 
     <!-- Popup for options -->
-    <div class="audio-popup-overlay" id="audio-popup-overlay">
-        <div class="audio-popup-content">
-            <div class="audio-popup-close" id="audio-close-popup">
+    <div id="audio-popup-overlay">
+        <div id="audio-popup-content">
+            <div id="audio-popup-close">
                 <i class="fas fa-times"></i>
             </div>
             
-            <h3 class="audio-popup-title">Select Lecture Series</h3>
+            <h3 id="audio-popup-title">Select Lecture Series</h3>
             
-            <ul class="audio-option-list">
+            <ul id="audio-option-list">
                 <li class="audio-option-item">
                     <button class="audio-option-button" data-link="https://drive.google.com/drive/folders/1LN9rGX5wr6Ibn_TAOCp6pMuV2LAgwzeN?usp=sharing">
                         All Jumar Boyans 2020
-                        <span>The collection of Friday sermons from 2020</span>
+                        <span>The collection of Friday sermons.</span>
                     </button>
                 </li>
                
                 <li class="audio-option-item">
                     <button class="audio-option-button" data-link="https://drive.google.com/drive/u/6/mobile/folders/1mEJmcJxqxt_W6L9aMCUWKaXos9lCHJsH?sort=13&direction=a">
                         All Jumar Boyans 2023
-                        <span>The collection of Friday sermons from 2023</span>
+                        <span>The collection of Friday sermons.</span>
                     </button>
                 </li>
                 <li class="audio-option-item">
                     <button class="audio-option-button" data-link="https://drive.google.com/drive/u/6/mobile/folders/1mEJmcJxqxt_W6L9aMCUWKaXos9lCHJsH?sort=13&direction=a">
                         All Jumar Boyans 2024
-                        <span>The collection of Friday sermons from 2024</span>
+                        <span>The collection of Friday sermons.</span>
                     </button>
                 </li>
                 <li class="audio-option-item">
                     <button class="audio-option-button" data-link="https://drive.google.com/drive/u/6/mobile/folders/1mEJmcJxqxt_W6L9aMCUWKaXos9lCHJsH?sort=13&direction=a">
                         All Jumar Boyans 2025
-                        <span>The collection of Friday sermons from 2025</span>
+                        <span>The collection of Friday sermons.</span>
                     </button>
                 </li>
             </ul>
+            
+            
+            
+            
+            
+            
+            
+            
+            <!-- Exclusive Content Section -->
+            <div id="audio-exclusive-section">
+                <h4 id="audio-exclusive-title">Exclusive Contents</h4>
+                <div id="audio-exclusive-grid">
+                    <a href="https://drive.google.com/drive/folders/1s_bh7Z_cq71ln6l9HRoo1BwgZI_XE8rI?usp=drive_link" class="audio-exclusive-button" target="_blank">
+                        <p><i class="fas fa-star"></i>
+               ইউসুফ - জুলেখা আঃ ঘটনা<i class="fas fa-star"></i>
+                        </p>
+                    </a>
+                    
+                    
+                    
+                    
+                    <a href="https://drive.google.com/drive/folders/1X3Ia9wctnOV8sc1IHnGVeUAW8a2F4V4m?usp=drive_link" class="audio-exclusive-button" target="_blank">
+                       <p> <i class="fas fa-thumbtack"></i> 
+               আসহাবে কাহাব এর ঘটনা<i class="fas fa-thumbtack"></i>  </p>
+                    </a>
+                    
+                    
+                 
+                    
+                    
+                    
+                    <a href="https://drive.google.com/drive/folders/1MWm0XffKCYFnk4fKFCiMCrO8qLGfpv3I?usp=drive_link" class="audio-exclusive-button" target="_blank">
+                       <p> <i class="fas fa-mosque"></i>
+         Selected Short Waz <i class="fas fa-mosque"></i> </p>
+                    </a>
+                  
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // JavaScript for popup functionality - scoped to prevent conflicts
+        // Scoped JavaScript to prevent conflicts
         (function() {
             'use strict';
             
-            const showOptionsBtn = document.getElementById('audio-show-options');
+            // Get all elements with specific IDs to avoid conflicts
+            const showOptionsBtn = document.getElementById('audio-drive-link-button');
             const popupOverlay = document.getElementById('audio-popup-overlay');
-            const closePopupBtn = document.getElementById('audio-close-popup');
+            const closePopupBtn = document.getElementById('audio-popup-close');
             const optionButtons = document.querySelectorAll('.audio-option-button');
+            const exclusiveButtons = document.querySelectorAll('.audio-exclusive-button');
             
             // Show popup when button is clicked
             if (showOptionsBtn) {
@@ -1647,6 +1772,21 @@
                 });
             }
             
+            // Exclusive buttons already have href attributes, so they will open naturally
+            // We just need to close the popup when clicked
+            if (exclusiveButtons.length > 0) {
+                exclusiveButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // The link will open in a new tab naturally
+                        // We close the popup after a short delay
+                        setTimeout(() => {
+                            popupOverlay.classList.remove('active');
+                            document.body.style.overflow = 'auto'; // Restore scrolling
+                        }, 300);
+                    });
+                });
+            }
+            
             // Close popup with Escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && popupOverlay.classList.contains('active')) {
@@ -1654,48 +1794,22 @@
                     document.body.style.overflow = 'auto'; // Restore scrolling
                 }
             });
+            
+            // Prevent event propagation for the popup content
+            const popupContent = document.getElementById('audio-popup-content');
+            if (popupContent) {
+                popupContent.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
         })();
     </script>
 </body>
 </html>
 
-
-
           
 
-    <script>
-        // Popup functionality
-        const showOptionsButton = document.getElementById('audio-show-options');
-        const popupOverlay = document.getElementById('audio-popup-overlay');
-        const closePopupButton = document.getElementById('audio-close-popup');
-        const optionButtons = document.querySelectorAll('.audio-option-button');
-        
-        showOptionsButton.addEventListener('click', () => {
-            popupOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closePopupButton.addEventListener('click', () => {
-            popupOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        popupOverlay.addEventListener('click', (e) => {
-            if (e.target === popupOverlay) {
-                popupOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-        
-        optionButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const link = button.getAttribute('data-link');
-                window.open(link, '_blank');
-                popupOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-    </script>
+
         <!-- About Section -->
         <section class="about-section content-container" id="about">
             <div class="about-image">
@@ -1727,25 +1841,85 @@
         audio: [
             {
                 title: "The Light of Guidance - Surah Al-Baqarah Murshid Qibla: Waz Clip",
-                date: "May 2025 • 35m",
+                
                 src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
                 category: "Murshid Qibla: Waz Clip"
             },
             {
                 title: "Understanding the Five Pillars of Islam",
-                date: "April 2025 • 42m",
+                
                 src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                 category: "Murshid qibla: Soul-touching Waz Clips"
             },
             {
                 title: "The Life of Prophet Muhammad (PBUH) - Part 1",
-                date: "March 2025 • 38m",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                category: "Murshid Qibla: Ham Nats"
+            },
+             {
+                title: "The Life of Prophet Muhammad (PBUH) - Part 1",
+                
                 src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                 category: "Murshid Qibla: Ham Nats"
             },
             {
                 title: "Fiqh of Salah - Complete Guide",
-                date: "December 2024 • 50m",
+                
                 src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
                 category: "Murshid qibla: Soul-touching Waz Clips"
             }
@@ -1755,42 +1929,42 @@
         video: [
             {
                 title: "Murshid Qibla: Waz Clips Special: Night of Power - Laylatul Qadr",
-                date: "May 2025 • 21m",
+                
                 src: "https://ia800904.us.archive.org/23/items/20250707_20250707_1403/%E0%A6%B9%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%81%20%E0%A6%AE%E0%A7%81%E0%A6%B8%E0%A6%B2%E0%A6%AE%E0%A6%BE%E0%A6%A8.mp4",
                 poster: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Murshid Qibla: Waz Clips"
             },
             {
                 title: "The Importance of Zakat in Islam",
-                date: "April 2025 • 28m",
+                
                 src: "https://www.w3schools.com/html/mov_bbb.mp4",
                 poster: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Murshid Qibla: Ham Nats"
             },
             {
                 title: "Murshid qibla: Soul-touching Waz Clips: A Spiritual Journey",
-                date: "March 2025 • 32m",
+                
                 src: "https://ia800904.us.archive.org/23/items/20250707_20250707_1403/%E0%A6%B9%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%81%20%E0%A6%AE%E0%A7%81%E0%A6%B8%E0%A6%B2%E0%A6%AE%E0%A6%BE%E0%A6%A8.mp4",
                 poster: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "Murshid qibla: Soul-touching Waz Clips"
             },
             {
                 title: "The Science in the Murshid Qibla: Ham Nats",
-                date: "February 2025 • 45m",
+                
                 src: "https://www.w3schools.com/html/mov_bbb.mp4",
                 poster: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "science"
             },
             {
                 title: "Islamic Ethics in Business",
-                date: "January 2025 • 38m",
+                
                 src: "https://ia800904.us.archive.org/23/items/20250707_20250707_1403/%E0%A6%B9%E0%A6%BF%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A7%81%20%E0%A6%AE%E0%A7%81%E0%A6%B8%E0%A6%B2%E0%A6%AE%E0%A6%BE%E0%A6%A8.mp4",
                 poster: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "ethics"
             },
             {
                 title: "Parenting in Islam",
-                date: "December 2024 • 40m",
+                
                 src: "https://www.w3schools.com/html/mov_bbb.mp4",
                 poster: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 category: "ethics"
@@ -1910,7 +2084,7 @@
                     <div class="media-icon"><i class="fas fa-microphone-alt" aria-hidden="true"></i></div>
                     <div class="media-info">
                         <h3 class="media-title">${item.title}</h3>
-                        <div class="media-date"><i class="far fa-calendar-alt" aria-hidden="true"></i> ${item.date}</div>
+                        
                     </div>
                 </div>
                 <div class="media-player">
@@ -1931,7 +2105,7 @@
                     <div class="media-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
                     <div class="media-info">
                         <h3 class="media-title">${item.title}</h3>
-                        <div class="media-date"><i class="far fa-calendar-alt" aria-hidden="true"></i> ${item.date}</div>
+                        
                     </div>
                 </div>
                 <div class="media-player">
